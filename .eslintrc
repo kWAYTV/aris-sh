@@ -10,7 +10,7 @@
     "project": true
   },
   "plugins": ["@typescript-eslint", "simple-import-sort", "prettier"],
-  "ignorePatterns": ["src/components/ui/**"],
+  "ignorePatterns": ["src/components/ui/**", "drizzle/**", "node_modules/**"],
   "rules": {
     "@typescript-eslint/consistent-type-imports": [
       "error",
