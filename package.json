@@ -8,7 +8,6 @@
     "start": "next start",
     "lint": "next lint --fix",
     "format": "prettier --write .",
-    "bump": "bumpp",
     "db:gen": "drizzle-kit generate",
     "db:push": "drizzle-kit push",
     "db:stu": "drizzle-kit studio",
