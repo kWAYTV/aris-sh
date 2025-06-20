@@ -24,7 +24,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton size='lg' asChild>
               <Link href='https://aris.sh' target='_blank'>
-                <div className='bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg'>
+                <div className='hover:bg-accent hover:text-accent-foreground flex aspect-square size-8 items-center justify-center rounded-lg border transition-colors'>
                   <MessagesSquare className='size-4' />
                 </div>
                 <div className='flex flex-col gap-0.5 leading-none'>
@@ -45,7 +45,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <div className='flex items-center justify-center gap-2'>
               <ModeToggle />
-              <Button variant='outline' size='icon' asChild>
+              <Button variant='ghost' size='icon' asChild>
                 <Link href='https://github.com/kWAYTV/aris-sh' target='_blank'>
                   <Github className='h-[1.2rem] w-[1.2rem]' />
                   <span className='sr-only'>View GitHub Repository</span>
