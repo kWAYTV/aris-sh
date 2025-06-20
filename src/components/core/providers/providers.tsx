@@ -22,6 +22,10 @@ export function Providers({ children }: { children: ReactNode }) {
         router.refresh();
       }}
       Link={Link}
+      credentials={{
+        username: true,
+        confirmPassword: true
+      }}
       emailVerification
       avatar
       deleteUser
