@@ -307,7 +307,7 @@ export function ThemeSelector({
   open,
   onOpenChange,
   hideCloseButton = false
-}: ThemeSelectorProps = {}) {
+}: ThemeSelectorProps) {
   const isMobile = useIsMobile();
 
   if (isModal) {
