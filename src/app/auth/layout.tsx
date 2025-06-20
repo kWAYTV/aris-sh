@@ -1,3 +1,5 @@
+import { type Metadata } from 'next';
+
 import Navbar from '@/components/core/layout/nav';
 
 export default async function Layout({
@@ -12,3 +14,8 @@ export default async function Layout({
     </>
   );
 }
+
+export const metadata: Metadata = {
+  title: 'aris.sh | auth',
+  description: 'creative studio brain.'
+};
