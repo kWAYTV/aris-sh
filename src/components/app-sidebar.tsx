@@ -1,12 +1,12 @@
 import { UserButton } from '@daveyplate/better-auth-ui';
-import { Brain, Github } from 'lucide-react';
+import { Brain } from 'lucide-react';
 import Link from 'next/link';
 import * as React from 'react';
 
 import { ThreadList } from '@/components/assistant/thread-list';
+import { GitHubButton } from '@/components/core/shared/github-button';
 import ThemeButton from '@/components/core/themes/theme-button';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/ui/mode-toggle';
 import { Separator } from '@/components/ui/separator';
 import {
@@ -55,15 +55,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <div className='flex items-center gap-2'>
                 <ModeToggle />
                 <ThemeButton />
-                <Button variant='ghost' size='icon' asChild>
-                  <Link
-                    href='https://github.com/kWAYTV/aris-sh'
-                    target='_blank'
-                  >
-                    <Github className='h-[1.2rem] w-[1.2rem]' />
-                    <span className='sr-only'>View GitHub Repository</span>
-                  </Link>
-                </Button>
+                <GitHubButton />
               </div>
               <UserButton size='icon' />
             </div>
