@@ -12,7 +12,9 @@ export const env = createEnv({
     BETTER_AUTH_SECRET: z.string(),
     GOOGLE_GENERATIVE_AI_API_KEY: z.string(),
     RESEND_API_KEY: z.string().min(1),
-    RESEND_FROM_EMAIL: z.string().min(1)
+    RESEND_FROM_EMAIL: z.string().min(1),
+    TWITTER_CLIENT_ID: z.string().min(1),
+    TWITTER_CLIENT_SECRET: z.string().min(1)
   },
   /*
    * Environment variables available on the client (and server).
@@ -32,6 +34,8 @@ export const env = createEnv({
     BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET,
     GOOGLE_GENERATIVE_AI_API_KEY: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
-    RESEND_FROM_EMAIL: process.env.RESEND_FROM_EMAIL
+    RESEND_FROM_EMAIL: process.env.RESEND_FROM_EMAIL,
+    TWITTER_CLIENT_ID: process.env.TWITTER_CLIENT_ID,
+    TWITTER_CLIENT_SECRET: process.env.TWITTER_CLIENT_SECRET
   }
 });

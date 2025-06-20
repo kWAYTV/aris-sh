@@ -35,13 +35,11 @@ export const auth = betterAuth({
     },
 
     sendResetPassword: async ({ user, url }) => {
-      const userName = user.name || user.email.split('@')[0];
-
       await sendEmailAction({
         to: user.email,
         subject: 'Reset your password - aris.sh',
         react: PasswordResetTemplate({
-          userName,
+          userName: user.name,
           resetUrl: String(url)
         })
       });
@@ -61,6 +59,13 @@ export const auth = betterAuth({
           verificationUrl: String(url)
         })
       });
+    }
+  },
+
+  socialProviders: {
+    twitter: {
+      clientId: process.env.TWITTER_CLIENT_ID as string,
+      clientSecret: process.env.TWITTER_CLIENT_SECRET as string
     }
   },
 

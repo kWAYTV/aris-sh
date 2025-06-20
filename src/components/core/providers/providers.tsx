@@ -26,6 +26,9 @@ export function Providers({ children }: { children: ReactNode }) {
         username: true,
         confirmPassword: true
       }}
+      social={{
+        providers: ['twitter']
+      }}
       emailVerification
       avatar
       deleteUser

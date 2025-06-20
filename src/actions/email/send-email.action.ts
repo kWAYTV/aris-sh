@@ -2,9 +2,9 @@
 
 import type { ReactElement } from 'react';
 
-import { env } from '../../env';
-import { resend } from '../../lib/resend';
-import { type ApiResponse } from '../../types/api';
+import { env } from '@/env';
+import { resend } from '@/lib/resend';
+import { type ApiResponse } from '@/types/api';
 
 interface SendEmailParams {
   to: string;
