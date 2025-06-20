@@ -127,24 +127,26 @@ const ThreadWelcomeSuggestions: FC = () => {
 
 const Composer: FC = () => {
   return (
-    <div
-      className='via-border/50 relative w-full bg-gradient-to-r from-transparent to-transparent p-[1px]'
+    <ComposerPrimitive.Root
+      className='focus-within:border-ring/20 flex w-full flex-wrap items-end border bg-inherit px-2.5 shadow-sm transition-colors ease-in'
       style={{ borderRadius: 'var(--radius-lg)' }}
     >
-      <Spotlight className='from-blue-600 via-blue-500 to-blue-400 dark:from-blue-400 dark:via-blue-300 dark:to-blue-200' />
-      <ComposerPrimitive.Root
-        className='focus-within:border-ring/20 flex w-full flex-wrap items-end border bg-inherit px-2.5 shadow-sm transition-colors ease-in'
-        style={{ borderRadius: 'var(--radius-lg)' }}
-      >
-        <ComposerPrimitive.Input
-          rows={1}
-          autoFocus
-          placeholder='Write a message...'
-          className='placeholder:text-muted-foreground max-h-40 flex-grow resize-none border-none bg-transparent px-2 py-4 text-sm outline-none focus:ring-0 disabled:cursor-not-allowed'
-        />
-        <ComposerAction />
-      </ComposerPrimitive.Root>
-    </div>
+      <Spotlight
+        className='bg-zinc-700 blur-2xl'
+        size={64}
+        springOptions={{
+          bounce: 0.3,
+          duration: 0.1
+        }}
+      />
+      <ComposerPrimitive.Input
+        rows={1}
+        autoFocus
+        placeholder='Write a message...'
+        className='placeholder:text-muted-foreground max-h-40 flex-grow resize-none border-none bg-transparent px-2 py-4 text-sm outline-none focus:ring-0 disabled:cursor-not-allowed'
+      />
+      <ComposerAction />
+    </ComposerPrimitive.Root>
   );
 };
 
