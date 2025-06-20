@@ -1,5 +1,6 @@
 import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
+import { nextCookies } from 'better-auth/next-js';
 import { apiKey, magicLink, twoFactor, username } from 'better-auth/plugins';
 
 /* import { haveIBeenPwned } from 'better-auth/plugins'; */
@@ -34,6 +35,13 @@ export const auth = betterAuth({
     max: 100, // max requests in the window,
     storage: 'database',
     modelName: 'rateLimit'
+  },
+
+  session: {
+    cookieCache: {
+      enabled: true,
+      maxAge: 3 * 60 // Cache duration in seconds
+    }
   },
 
   user: {
@@ -126,11 +134,13 @@ export const auth = betterAuth({
 
     twoFactor({
       issuer: 'arisdotsh'
-    })
+    }),
 
     /* haveIBeenPwned({
       customPasswordCompromisedMessage: 'Please choose a more secure password.'
-    }) */
+    }), */
+
+    nextCookies()
   ]
 });
 

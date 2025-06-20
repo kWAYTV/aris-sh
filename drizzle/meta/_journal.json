@@ -29,6 +29,13 @@
       "when": 1750438660386,
       "tag": "0003_fuzzy_barracuda",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1750440346440,
+      "tag": "0004_strong_living_tribunal",
+      "breakpoints": true
     }
   ]
 }
