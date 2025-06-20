@@ -42,7 +42,7 @@ export function PasswordResetTemplate({
     ),
     heading: 'Reset Your Password',
     siteName: 'aris.sh',
-    baseUrl: process.env.CORS_ORIGIN,
+    baseUrl: process.env.BETTER_AUTH_URL,
     url: resetUrl,
     preview: 'Reset your password for your aris.sh account',
     imageUrl: 'https://aris.sh/og.png'

@@ -43,7 +43,7 @@ export function ChangeEmailTemplate({
     ),
     heading: 'Verify Your New Email Address',
     siteName: 'aris.sh',
-    baseUrl: process.env.CORS_ORIGIN,
+    baseUrl: process.env.BETTER_AUTH_URL,
     url: verificationUrl,
     preview: 'Verify your new email address for aris.sh',
     imageUrl: 'https://aris.sh/og.png'

@@ -39,7 +39,7 @@ export function MagicLinkTemplate({ userName, magicLinkUrl }: MagicLinkProps) {
     ),
     heading: 'Sign In to aris.sh',
     siteName: 'aris.sh',
-    baseUrl: process.env.CORS_ORIGIN,
+    baseUrl: process.env.BETTER_AUTH_URL,
     url: magicLinkUrl,
     preview: 'Your secure sign-in link for aris.sh',
     imageUrl: 'https://aris.sh/og.png'
