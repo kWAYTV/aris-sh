@@ -15,7 +15,9 @@ export const env = createEnv({
     RESEND_API_KEY: z.string().min(1),
     RESEND_FROM_EMAIL: z.string().min(1),
     TWITTER_CLIENT_ID: z.string().min(1),
-    TWITTER_CLIENT_SECRET: z.string().min(1)
+    TWITTER_CLIENT_SECRET: z.string().min(1),
+    GITHUB_CLIENT_ID: z.string().min(1),
+    GITHUB_CLIENT_SECRET: z.string().min(1)
   },
   /*
    * Environment variables available on the client (and server).
@@ -37,7 +39,9 @@ export const env = createEnv({
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     RESEND_FROM_EMAIL: process.env.RESEND_FROM_EMAIL,
     TWITTER_CLIENT_ID: process.env.TWITTER_CLIENT_ID,
-    TWITTER_CLIENT_SECRET: process.env.TWITTER_CLIENT_SECRET
+    TWITTER_CLIENT_SECRET: process.env.TWITTER_CLIENT_SECRET,
+    GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
+    GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET
   },
 
   extends: [vercel()]

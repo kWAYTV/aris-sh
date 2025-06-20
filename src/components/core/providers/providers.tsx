@@ -27,7 +27,7 @@ export function Providers({ children }: { children: ReactNode }) {
         confirmPassword: true
       }}
       social={{
-        providers: ['twitter']
+        providers: ['twitter', 'github']
       }}
       apiKey={{
         prefix: 'aris_',
