@@ -19,9 +19,7 @@ export function Providers({ children }: { children: ReactNode }) {
       authClient={authClient}
       navigate={router.push}
       replace={router.replace}
-      onSessionChange={() => {
-        router.refresh();
-      }}
+      onSessionChange={() => router.refresh()}
       Link={Link}
       credentials={{
         username: true,
