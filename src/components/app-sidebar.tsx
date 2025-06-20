@@ -3,6 +3,8 @@ import Link from 'next/link';
 import * as React from 'react';
 
 import { ThreadList } from '@/components/assistant/thread-list';
+import { Button } from '@/components/ui/button';
+import { ModeToggle } from '@/components/ui/mode-toggle';
 import {
   Sidebar,
   SidebarContent,
@@ -41,17 +43,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton size='lg' asChild>
-              <Link href='https://github.com/kWAYTV/aris-sh' target='_blank'>
-                <div className='bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg'>
-                  <Github className='size-4' />
-                </div>
-                <div className='flex flex-col gap-0.5 leading-none'>
-                  <span className='font-semibold'>GitHub</span>
-                  <span className=''>View Source</span>
-                </div>
-              </Link>
-            </SidebarMenuButton>
+            <div className='flex items-center justify-center gap-2'>
+              <ModeToggle />
+              <Button variant='outline' size='icon' asChild>
+                <Link href='https://github.com/kWAYTV/aris-sh' target='_blank'>
+                  <Github className='h-[1.2rem] w-[1.2rem]' />
+                  <span className='sr-only'>View GitHub Repository</span>
+                </Link>
+              </Button>
+            </div>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
