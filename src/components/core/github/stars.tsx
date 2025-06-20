@@ -1,7 +1,7 @@
 'use client';
 
 import { Star } from 'lucide-react';
-import { useCallback, useEffect, useState } from 'react';
+import { Suspense } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -14,90 +14,30 @@ import {
 
 interface GitHubRepo {
   stargazers_count: number;
-  html_url: string;
 }
 
-type LoadingState = 'idle' | 'loading' | 'success' | 'error';
+async function fetchGitHubStars(): Promise<number> {
+  'use cache';
 
-export function GitHubStars() {
-  const [stars, setStars] = useState<number | null>(null);
-  const [state, setState] = useState<LoadingState>('idle');
-  const [error, setError] = useState<string | null>(null);
+  const response = await fetch('https://api.github.com/repos/kWAYTV/aris-sh');
 
-  const fetchStars = useCallback(async () => {
-    setState('loading');
-    setError(null);
-
-    try {
-      const response = await fetch(
-        'https://api.github.com/repos/kWAYTV/aris-sh'
-      );
-
-      if (!response.ok) {
-        throw new Error(`GitHub API error: ${response.status}`);
-      }
-
-      const data: GitHubRepo = await response.json();
-      setStars(data.stargazers_count);
-      setState('success');
-    } catch (err) {
-      const errorMsg =
-        err instanceof Error ? err.message : 'Failed to fetch stars';
-      setError(errorMsg);
-      setState('error');
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchStars();
-  }, [fetchStars]);
-
-  const formatStars = (count: number): string => {
-    if (count >= 1000) {
-      return `${(count / 1000).toFixed(1)}k`;
-    }
-    return count.toString();
-  };
-
-  const handleRetry = () => {
-    fetchStars();
-  };
-
-  if (state === 'loading' || state === 'idle') {
-    return (
-      <div className='flex items-center gap-2'>
-        <Skeleton className='h-4 w-4 rounded' />
-        <Skeleton className='h-4 w-8' />
-      </div>
-    );
+  if (!response.ok) {
+    throw new Error(`GitHub API error: ${response.status}`);
   }
 
-  if (state === 'error') {
-    return (
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button
-              variant='ghost'
-              size='sm'
-              onClick={handleRetry}
-              className='text-muted-foreground hover:text-foreground h-auto p-1'
-              aria-label='Retry fetching GitHub stars'
-            >
-              <Star className='h-4 w-4' />
-              <span className='text-sm'>?</span>
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Failed to load stars. Click to retry.</p>
-            {error && <p className='text-muted-foreground text-xs'>{error}</p>}
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-    );
-  }
+  const data: GitHubRepo = await response.json();
+  return data.stargazers_count;
+}
 
-  if (stars === null) return null;
+function formatStars(count: number): string {
+  if (count >= 1000) {
+    return `${(count / 1000).toFixed(1)}k`;
+  }
+  return count.toString();
+}
+
+async function GitHubStarsContent() {
+  const stars = await fetchGitHubStars();
 
   return (
     <TooltipProvider>
@@ -126,5 +66,22 @@ export function GitHubStars() {
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
+  );
+}
+
+function GitHubStarsLoading() {
+  return (
+    <div className='flex items-center gap-2'>
+      <Skeleton className='h-4 w-4 rounded' />
+      <Skeleton className='h-4 w-8' />
+    </div>
+  );
+}
+
+export function GitHubStars() {
+  return (
+    <Suspense fallback={<GitHubStarsLoading />}>
+      <GitHubStarsContent />
+    </Suspense>
   );
 }
