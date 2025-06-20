@@ -12,7 +12,6 @@ import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import * as React from 'react';
 
-import { TooltipIconButton } from '@/components/assistant/tooltip-icon-button';
 import { useThemeConfig } from '@/components/core/themes/active-theme';
 import { Button } from '@/components/ui/button';
 import {
@@ -21,10 +20,11 @@ import {
   DialogHeader,
   DialogTitle
 } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
 import { Sheet, SheetContent, SheetTitle } from '@/components/ui/sheet';
 import { Skeleton } from '@/components/ui/skeleton';
 import { VisuallyHidden } from '@/components/ui/visually-hidden';
-import { useIsMobile } from '@/hooks/use-mobile.hook';
+import { useMobile } from '@/hooks/use-mobile.hook';
 import { baseThemes } from '@/lib/themes';
 import { cn } from '@/lib/utils';
 
@@ -35,7 +35,7 @@ interface ThemeSelectorProps {
   hideCloseButton?: boolean;
 }
 
-const THEMES_PER_PAGE_MOBILE = 4;
+const THEMES_PER_PAGE_MOBILE = 6;
 const THEMES_PER_PAGE_DESKTOP = 6;
 
 function ThemeSelectorContent({
@@ -49,7 +49,7 @@ function ThemeSelectorContent({
   const [mounted, setMounted] = React.useState(false);
   const [currentPage, setCurrentPage] = React.useState(0);
   const { setTheme, resolvedTheme: theme } = useTheme();
-  const isMobile = useIsMobile();
+  const isMobile = useMobile();
 
   React.useEffect(() => {
     setMounted(true);
@@ -84,16 +84,17 @@ function ThemeSelectorContent({
             </div>
           </div>
           {!hideCloseButton && (
-            <TooltipIconButton
+            <Button
               asChild
-              tooltip='Close'
               variant='ghost'
-              className='hover:bg-muted rounded-lg transition-colors ease-in'
+              size='icon'
+              className='hover:bg-muted rounded-[0.5rem] transition-colors'
+              aria-label='Close theme selector'
             >
               <Link href='/'>
                 <XIcon className='size-4' />
               </Link>
-            </TooltipIconButton>
+            </Button>
           )}
         </div>
       )}
@@ -107,9 +108,9 @@ function ThemeSelectorContent({
       >
         {/* Color Theme Selection */}
         <div className='space-y-4'>
-          <div className='text-muted-foreground text-xs font-medium tracking-wider uppercase'>
+          <Label className='text-muted-foreground text-xs font-medium tracking-wider uppercase'>
             Color Theme
-          </div>
+          </Label>
           {mounted ? (
             <>
               <div
@@ -120,12 +121,12 @@ function ThemeSelectorContent({
                     key={color.name}
                     onClick={() => setActiveTheme(color.name)}
                     className={cn(
-                      'hover:bg-muted/80 focus-visible:bg-muted focus-visible:ring-ring flex touch-manipulation items-center gap-3 rounded-lg border p-3 text-left transition-colors ease-in focus-visible:ring-2 focus-visible:outline-none',
+                      'hover:bg-accent/50 flex touch-manipulation items-center gap-4 rounded-xl border p-4 text-left transition-all active:scale-[0.98]',
                       isMobile
-                        ? 'min-h-[64px] flex-col gap-2 text-center'
-                        : 'min-h-[56px]',
+                        ? 'min-h-[72px] flex-col gap-3 text-center'
+                        : 'min-h-[60px]',
                       activeTheme === color.name
-                        ? 'border-primary bg-muted ring-primary/20 shadow-sm ring-2'
+                        ? 'border-primary bg-accent ring-primary/20 shadow-sm ring-2'
                         : 'border-border hover:border-border/80'
                     )}
                     aria-label={`Select ${color.label} theme`}
@@ -168,17 +169,19 @@ function ThemeSelectorContent({
                   )}
                 >
                   <Button
-                    variant='ghost'
+                    variant='outline'
                     size='sm'
                     onClick={() => setCurrentPage(Math.max(0, currentPage - 1))}
                     disabled={currentPage === 0}
                     className={cn(
-                      'hover:bg-muted touch-manipulation transition-colors ease-in',
-                      isMobile ? 'h-10 px-4' : 'h-9 px-3'
+                      'touch-manipulation',
+                      isMobile ? 'h-12 px-6' : 'h-10 px-4'
                     )}
                   >
-                    <ChevronLeftIcon className='mr-1 size-4' />
-                    <span className='hidden text-sm sm:inline'>Prev</span>
+                    <ChevronLeftIcon
+                      className={cn('mr-1', isMobile ? 'size-5' : 'size-4')}
+                    />
+                    <span className='hidden sm:inline'>Previous</span>
                   </Button>
 
                   <div className='flex items-center gap-3'>
@@ -199,19 +202,21 @@ function ThemeSelectorContent({
                   </div>
 
                   <Button
-                    variant='ghost'
+                    variant='outline'
                     size='sm'
                     onClick={() =>
                       setCurrentPage(Math.min(totalPages - 1, currentPage + 1))
                     }
                     disabled={currentPage === totalPages - 1}
                     className={cn(
-                      'hover:bg-muted touch-manipulation transition-colors ease-in',
-                      isMobile ? 'h-10 px-4' : 'h-9 px-3'
+                      'touch-manipulation',
+                      isMobile ? 'h-12 px-6' : 'h-10 px-4'
                     )}
                   >
-                    <span className='hidden text-sm sm:inline'>Next</span>
-                    <ChevronRightIcon className='ml-1 size-4' />
+                    <span className='hidden sm:inline'>Next</span>
+                    <ChevronRightIcon
+                      className={cn('ml-1', isMobile ? 'size-5' : 'size-4')}
+                    />
                   </Button>
                 </div>
               )}
@@ -235,9 +240,9 @@ function ThemeSelectorContent({
 
         {/* Mode Selection */}
         <div className='space-y-4'>
-          <div className='text-muted-foreground text-xs font-medium tracking-wider uppercase'>
+          <Label className='text-muted-foreground text-xs font-medium tracking-wider uppercase'>
             Appearance Mode
-          </div>
+          </Label>
           {mounted ? (
             <div className='grid grid-cols-3 gap-3'>
               {modeOptions.map(mode => {
@@ -247,12 +252,12 @@ function ThemeSelectorContent({
                     key={mode.value}
                     onClick={() => setTheme(mode.value)}
                     className={cn(
-                      'hover:bg-muted/80 focus-visible:bg-muted focus-visible:ring-ring flex touch-manipulation items-center gap-3 rounded-lg border p-3 transition-colors ease-in focus-visible:ring-2 focus-visible:outline-none',
+                      'hover:bg-accent/50 flex touch-manipulation items-center gap-3 rounded-xl border p-4 transition-all active:scale-[0.98]',
                       isMobile
-                        ? 'min-h-[64px] flex-col gap-2'
-                        : 'min-h-[56px] sm:flex-col sm:gap-2',
+                        ? 'min-h-[80px] flex-col gap-2'
+                        : 'min-h-[60px] sm:flex-col sm:gap-3',
                       theme === mode.value
-                        ? 'border-primary bg-muted ring-primary/20 shadow-sm ring-2'
+                        ? 'border-primary bg-accent ring-primary/20 shadow-sm ring-2'
                         : 'border-border hover:border-border/80'
                     )}
                     aria-label={`Select ${mode.label} mode`}
@@ -307,8 +312,8 @@ export function ThemeSelector({
   open,
   onOpenChange,
   hideCloseButton = false
-}: ThemeSelectorProps) {
-  const isMobile = useIsMobile();
+}: ThemeSelectorProps = {}) {
+  const isMobile = useMobile();
 
   if (isModal) {
     if (isMobile) {
@@ -337,14 +342,14 @@ export function ThemeSelector({
                     </p>
                   </div>
                   {!hideCloseButton && (
-                    <TooltipIconButton
-                      tooltip='Close'
+                    <Button
                       variant='ghost'
+                      size='icon'
                       onClick={() => onOpenChange?.(false)}
                       className='h-9 w-9'
                     >
                       <XIcon className='h-4 w-4' />
-                    </TooltipIconButton>
+                    </Button>
                   )}
                 </div>
               </div>
