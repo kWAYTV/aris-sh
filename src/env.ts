@@ -17,14 +17,17 @@ export const env = createEnv({
     TWITTER_CLIENT_ID: z.string().min(1),
     TWITTER_CLIENT_SECRET: z.string().min(1),
     GITHUB_CLIENT_ID: z.string().min(1),
-    GITHUB_CLIENT_SECRET: z.string().min(1)
+    GITHUB_CLIENT_SECRET: z.string().min(1),
+    TURNSTILE_SECRET_KEY: z.string().min(1)
   },
   /*
    * Environment variables available on the client (and server).
    *
    * 💡 You'll get type errors if these are not prefixed with NEXT_PUBLIC_.
    */
-  client: {},
+  client: {
+    NEXT_PUBLIC_TURNSTILE_SITE_KEY: z.string().min(1)
+  },
   /*
    * Due to how Next.js bundles environment variables on Edge and Client,
    * we need to manually destructure them to make sure all are included in bundle.
@@ -41,7 +44,9 @@ export const env = createEnv({
     TWITTER_CLIENT_ID: process.env.TWITTER_CLIENT_ID,
     TWITTER_CLIENT_SECRET: process.env.TWITTER_CLIENT_SECRET,
     GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
-    GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET
+    GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
+    NEXT_PUBLIC_TURNSTILE_SITE_KEY: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
+    TURNSTILE_SECRET_KEY: process.env.TURNSTILE_SECRET_KEY
   },
 
   extends: [vercel()]

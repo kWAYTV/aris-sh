@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import type { ReactNode } from 'react';
 
 import { Toaster } from '@/components/ui/sonner';
+import { env } from '@/env';
 import { authClient } from '@/lib/auth-client';
 import { getBaseUrl } from '@/lib/utils';
 
@@ -28,6 +29,10 @@ export function Providers({ children }: { children: ReactNode }) {
       }}
       social={{
         providers: ['twitter', 'github']
+      }}
+      captcha={{
+        provider: 'cloudflare-turnstile',
+        siteKey: env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
       }}
       apiKey={{
         prefix: 'aris_',

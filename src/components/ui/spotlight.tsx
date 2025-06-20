@@ -12,7 +12,7 @@ export type SpotlightProps = {
 export function Spotlight({
   className,
   size = 200,
-  springOptions = { bounce: 0 },
+  springOptions = { bounce: 0 }
 }: SpotlightProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -21,8 +21,8 @@ export function Spotlight({
   const mouseX = useSpring(0, springOptions);
   const mouseY = useSpring(0, springOptions);
 
-  const spotlightLeft = useTransform(mouseX, (x) => `${x - size / 2}px`);
-  const spotlightTop = useTransform(mouseY, (y) => `${y - size / 2}px`);
+  const spotlightLeft = useTransform(mouseX, x => `${x - size / 2}px`);
+  const spotlightTop = useTransform(mouseY, y => `${y - size / 2}px`);
 
   useEffect(() => {
     if (containerRef.current) {
@@ -51,13 +51,13 @@ export function Spotlight({
     const abortController = new AbortController();
 
     parentElement.addEventListener('mousemove', handleMouseMove, {
-      signal: abortController.signal,
+      signal: abortController.signal
     });
     parentElement.addEventListener('mouseenter', () => setIsHovered(true), {
-      signal: abortController.signal,
+      signal: abortController.signal
     });
     parentElement.addEventListener('mouseleave', () => setIsHovered(false), {
-      signal: abortController.signal,
+      signal: abortController.signal
     });
 
     return () => {
@@ -78,7 +78,7 @@ export function Spotlight({
         width: size,
         height: size,
         left: spotlightLeft,
-        top: spotlightTop,
+        top: spotlightTop
       }}
     />
   );

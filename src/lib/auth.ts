@@ -1,8 +1,14 @@
 import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { nextCookies } from 'better-auth/next-js';
-import { apiKey, magicLink, twoFactor, username } from 'better-auth/plugins';
-import { haveIBeenPwned } from 'better-auth/plugins';
+import {
+  apiKey,
+  captcha,
+  haveIBeenPwned,
+  magicLink,
+  twoFactor,
+  username
+} from 'better-auth/plugins';
 
 import { ChangeEmailTemplate } from '@/actions/email/emails/change-email';
 import { EmailVerificationTemplate } from '@/actions/email/emails/email-verification';
@@ -116,6 +122,11 @@ export const auth = betterAuth({
   plugins: [
     apiKey({
       enableMetadata: true
+    }),
+
+    captcha({
+      provider: 'cloudflare-turnstile',
+      secretKey: env.TURNSTILE_SECRET_KEY!
     }),
 
     username({
