@@ -2,6 +2,7 @@ import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 
 import { sendEmailAction } from '@/actions/email/send-email.action';
+import { ChangeEmailTemplate } from '@/components/emails/change-email';
 import { EmailVerificationTemplate } from '@/components/emails/email-verification';
 import { PasswordResetTemplate } from '@/components/emails/password-reset';
 /* import { haveIBeenPwned } from 'better-auth/plugins'; */
@@ -22,6 +23,20 @@ export const auth = betterAuth({
   user: {
     deleteUser: {
       enabled: true
+    },
+    changeEmail: {
+      enabled: true,
+      sendChangeEmailVerification: async ({ newEmail, url, user }) => {
+        await sendEmailAction({
+          to: newEmail,
+          subject: 'Verify your new email address - aris.sh',
+          react: ChangeEmailTemplate({
+            userName: user.name,
+            verificationUrl: String(url),
+            newEmail
+          })
+        });
+      }
     }
   },
 

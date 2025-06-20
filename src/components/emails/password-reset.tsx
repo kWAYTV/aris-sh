@@ -15,8 +15,8 @@ export function PasswordResetTemplate({
       <>
         <p>Hello {userName},</p>
         <p>
-          We received a request to reset your password for your banz.club
-          account. Click the button below to create a new password.
+          We received a request to reset your password for your aris.sh account.
+          Click the button below to create a new password.
         </p>
         <p>
           If you didn&apos;t request a password reset, you can safely ignore
@@ -41,10 +41,10 @@ export function PasswordResetTemplate({
       </>
     ),
     heading: 'Reset Your Password',
-    siteName: 'banz.club',
+    siteName: 'aris.sh',
     baseUrl: process.env.CORS_ORIGIN,
     url: resetUrl,
-    preview: 'Reset your password for your banz.club account',
-    imageUrl: 'https://banz.club/og.jpg'
+    preview: 'Reset your password for your aris.sh account',
+    imageUrl: 'https://aris.sh/og.png'
   });
 }

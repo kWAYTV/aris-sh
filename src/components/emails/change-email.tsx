@@ -1,26 +1,32 @@
 import { EmailTemplate } from '@daveyplate/better-auth-ui/server';
 
-interface EmailVerificationProps {
+interface ChangeEmailProps {
   userName: string;
   verificationUrl: string;
+  newEmail: string;
 }
 
-export function EmailVerificationTemplate({
+export function ChangeEmailTemplate({
   userName,
-  verificationUrl
-}: EmailVerificationProps) {
+  verificationUrl,
+  newEmail
+}: ChangeEmailProps) {
   return EmailTemplate({
-    action: 'Verify Email',
+    action: 'Verify New Email',
     content: (
       <>
         <p>Hello {userName},</p>
         <p>
-          Welcome to aris.sh! Please click the button below to verify your email
-          address and complete your registration.
+          We received a request to change your email address to{' '}
+          <strong>{newEmail}</strong>. Please click the button below to verify
+          this new email address.
         </p>
         <p>
-          If you didn&apos;t create an account with us, you can safely ignore
-          this email.
+          If you didn&apos;t request this email change, please contact our
+          support team immediately.
+        </p>
+        <p>
+          <strong>This verification link will expire in 24 hours.</strong>
         </p>
         <p style={{ fontSize: '12px', color: '#666' }}>
           If the button above doesn&apos;t work, copy and paste this link into
@@ -35,11 +41,11 @@ export function EmailVerificationTemplate({
         </p>
       </>
     ),
-    heading: 'Verify Your Email Address',
+    heading: 'Verify Your New Email Address',
     siteName: 'aris.sh',
     baseUrl: process.env.CORS_ORIGIN,
     url: verificationUrl,
-    preview: 'Verify your email address to complete your registration',
+    preview: 'Verify your new email address for aris.sh',
     imageUrl: 'https://aris.sh/og.png'
   });
 }
