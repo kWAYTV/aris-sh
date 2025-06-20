@@ -1,3 +1,4 @@
+import { UserButton } from '@daveyplate/better-auth-ui';
 import { Github, MessagesSquare } from 'lucide-react';
 import Link from 'next/link';
 import * as React from 'react';
@@ -43,14 +44,20 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <div className='flex items-center justify-center gap-2'>
-              <ModeToggle />
-              <Button variant='ghost' size='icon' asChild>
-                <Link href='https://github.com/kWAYTV/aris-sh' target='_blank'>
-                  <Github className='h-[1.2rem] w-[1.2rem]' />
-                  <span className='sr-only'>View GitHub Repository</span>
-                </Link>
-              </Button>
+            <div className='flex items-center justify-between gap-2 px-2 py-1'>
+              <div className='flex items-center gap-2'>
+                <ModeToggle />
+                <Button variant='ghost' size='icon' asChild>
+                  <Link
+                    href='https://github.com/kWAYTV/aris-sh'
+                    target='_blank'
+                  >
+                    <Github className='h-[1.2rem] w-[1.2rem]' />
+                    <span className='sr-only'>View GitHub Repository</span>
+                  </Link>
+                </Button>
+              </div>
+              <UserButton size='icon' />
             </div>
           </SidebarMenuItem>
         </SidebarMenu>
