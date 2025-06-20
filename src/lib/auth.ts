@@ -2,13 +2,13 @@ import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { nextCookies } from 'better-auth/next-js';
 import { apiKey, magicLink, twoFactor, username } from 'better-auth/plugins';
+import { haveIBeenPwned } from 'better-auth/plugins';
 
-/* import { haveIBeenPwned } from 'better-auth/plugins'; */
+import { ChangeEmailTemplate } from '@/actions/email/emails/change-email';
+import { EmailVerificationTemplate } from '@/actions/email/emails/email-verification';
+import { MagicLinkTemplate } from '@/actions/email/emails/magic-link';
+import { PasswordResetTemplate } from '@/actions/email/emails/password-reset';
 import { sendEmailAction } from '@/actions/email/send-email.action';
-import { ChangeEmailTemplate } from '@/components/emails/change-email';
-import { EmailVerificationTemplate } from '@/components/emails/email-verification';
-import { MagicLinkTemplate } from '@/components/emails/magic-link';
-import { PasswordResetTemplate } from '@/components/emails/password-reset';
 import { env } from '@/env';
 import { db } from '@/lib/db';
 import { hashPassword, verifyPassword } from '@/lib/hash';
@@ -136,9 +136,9 @@ export const auth = betterAuth({
       issuer: 'arisdotsh'
     }),
 
-    /* haveIBeenPwned({
+    haveIBeenPwned({
       customPasswordCompromisedMessage: 'Please choose a more secure password.'
-    }), */
+    }),
 
     nextCookies()
   ]
