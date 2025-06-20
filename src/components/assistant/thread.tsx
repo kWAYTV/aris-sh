@@ -82,13 +82,27 @@ const ThreadScrollToBottom: FC = () => {
 };
 
 const ThreadWelcome: FC = () => {
+  'use client';
+  const { data: session } = useSession();
+  if (!session) return null;
+
+  const user = session.user;
+
   return (
     <ThreadPrimitive.Empty>
       <div className='flex w-full max-w-[var(--thread-max-width)] flex-grow flex-col'>
-        <div className='flex w-full flex-grow flex-col items-center justify-center'>
-          <TextShimmer className='mt-4 font-medium'>
-            How can I help you today?
-          </TextShimmer>
+        <div className='flex w-full flex-grow flex-col items-center justify-center space-y-6 px-4 py-12'>
+          <div className='space-y-4 text-center'>
+            <h1 className='text-foreground text-3xl font-bold tracking-tight'>
+              Welcome, <span className='text-primary'>{user?.name}</span>
+            </h1>
+            <TextShimmer className='text-xl font-medium'>
+              How can I help you today?
+            </TextShimmer>
+          </div>
+          <div className='flex w-full max-w-md items-center justify-center'>
+            <div className='via-border h-px w-full bg-gradient-to-r from-transparent to-transparent' />
+          </div>
         </div>
         <ThreadWelcomeSuggestions />
       </div>
