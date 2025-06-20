@@ -35,7 +35,7 @@ interface ThemeSelectorProps {
   hideCloseButton?: boolean;
 }
 
-const THEMES_PER_PAGE_MOBILE = 6;
+const THEMES_PER_PAGE_MOBILE = 4;
 const THEMES_PER_PAGE_DESKTOP = 6;
 
 function ThemeSelectorContent({
