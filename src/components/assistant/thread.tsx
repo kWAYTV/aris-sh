@@ -18,6 +18,7 @@ import {
   SendHorizontalIcon
 } from 'lucide-react';
 import type { FC } from 'react';
+import { Spoiler } from 'spoiled';
 
 import { MarkdownText } from '@/components/assistant/markdown-text';
 import { ToolFallback } from '@/components/assistant/tool-fallback';
@@ -94,7 +95,7 @@ const ThreadWelcome: FC = () => {
         <div className='flex w-full flex-grow flex-col items-center justify-center space-y-6 px-4 py-12'>
           <div className='space-y-4 text-center'>
             <h1 className='text-foreground text-3xl font-bold tracking-tight'>
-              Welcome, <span className='text-primary'>{user?.name}</span>
+              Welcome, <Spoiler className='text-primary'>{user?.name}</Spoiler>
             </h1>
             <TextShimmer className='text-xl font-medium'>
               How can I help you today?

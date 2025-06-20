@@ -50,6 +50,7 @@
     "resend": "^4.6.0",
     "shiki": "^3.7.0",
     "sonner": "^2.0.5",
+    "spoiled": "^0.4.0",
     "tailwind-merge": "^3.3.1",
     "tw-animate-css": "^1.3.4",
     "zod": "^3.25.67"
