@@ -8,6 +8,20 @@
       "when": 1750398069596,
       "tag": "0000_late_cable",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1750403867029,
+      "tag": "0001_soft_unicorn",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1750404158912,
+      "tag": "0002_amusing_ezekiel_stane",
+      "breakpoints": true
     }
   ]
 }

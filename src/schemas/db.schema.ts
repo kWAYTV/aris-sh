@@ -13,7 +13,10 @@ export const user = pgTable('user', {
     .notNull(),
   updatedAt: timestamp('updated_at')
     .$defaultFn(() => /* @__PURE__ */ new Date())
-    .notNull()
+    .notNull(),
+  username: text('username').unique(),
+  displayUsername: text('display_username'),
+  twoFactorEnabled: boolean('two_factor_enabled')
 });
 
 export const session = pgTable('session', {
@@ -58,4 +61,13 @@ export const verification = pgTable('verification', {
   updatedAt: timestamp('updated_at').$defaultFn(
     () => /* @__PURE__ */ new Date()
   )
+});
+
+export const twoFactor = pgTable('two_factor', {
+  id: text('id').primaryKey(),
+  secret: text('secret').notNull(),
+  backupCodes: text('backup_codes').notNull(),
+  userId: text('user_id')
+    .notNull()
+    .references(() => user.id, { onDelete: 'cascade' })
 });

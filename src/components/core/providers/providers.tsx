@@ -29,8 +29,10 @@ export function Providers({ children }: { children: ReactNode }) {
       social={{
         providers: ['twitter']
       }}
+      twoFactor={['totp']}
       emailVerification
       avatar
+      magicLink
       deleteUser
     >
       {children}
