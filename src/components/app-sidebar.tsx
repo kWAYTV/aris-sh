@@ -4,6 +4,7 @@ import Link from 'next/link';
 import * as React from 'react';
 
 import { ThreadList } from '@/components/assistant/thread-list';
+import ThemeButton from '@/components/core/themes/theme-button';
 import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/ui/mode-toggle';
 import { Separator } from '@/components/ui/separator';
@@ -25,7 +26,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size='lg' asChild>
-              <Link href='https://aris.sh' target='_blank'>
+              <Link href='https://aris.sh'>
                 <div className='hover:bg-accent hover:text-accent-foreground flex aspect-square size-8 items-center justify-center rounded-lg border transition-colors'>
                   <MessagesSquare className='size-4' />
                 </div>
@@ -49,6 +50,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <div className='flex items-center justify-between gap-2 px-2 py-1'>
               <div className='flex items-center gap-2'>
                 <ModeToggle />
+                <ThemeButton />
                 <Button variant='ghost' size='icon' asChild>
                   <Link
                     href='https://github.com/kWAYTV/aris-sh'

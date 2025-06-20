@@ -5,6 +5,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 
 import { Providers } from '@/components/core/providers/providers';
 import { ThemeProvider } from '@/components/core/providers/theme-provider';
+import { ActiveThemeProvider } from '@/components/core/themes/active-theme';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -22,14 +23,17 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-  children
+  children,
+  modal
 }: Readonly<{
   children: React.ReactNode;
+  modal: React.ReactNode;
 }>) {
   return (
     <html lang='en' suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning
       >
         <ThemeProvider
           attribute='class'
@@ -37,7 +41,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Providers>{children}</Providers>
+          <ActiveThemeProvider>
+            <Providers>
+              {children}
+              {modal}
+            </Providers>
+          </ActiveThemeProvider>
         </ThemeProvider>
       </body>
     </html>

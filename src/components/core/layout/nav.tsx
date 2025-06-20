@@ -4,6 +4,7 @@ import { UserButton } from '@daveyplate/better-auth-ui';
 import { Brain } from 'lucide-react';
 import Link from 'next/link';
 
+import ThemeButton from '@/components/core/themes/theme-button';
 import { ModeToggle } from '@/components/ui/mode-toggle';
 import { cn } from '@/lib/utils';
 
@@ -33,10 +34,11 @@ export default function Navbar() {
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <div
-              className='relative touch-manipulation'
+              className='relative flex touch-manipulation items-center gap-2'
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <ModeToggle />
+              <ThemeButton />
             </div>
             <div
               className='relative touch-manipulation'

@@ -11,7 +11,10 @@ export const ToolFallback: ToolCallContentPartComponent = ({
 }) => {
   const [isCollapsed, setIsCollapsed] = useState(true);
   return (
-    <div className='mb-4 flex w-full flex-col gap-3 rounded-lg border py-3'>
+    <div
+      className='mb-4 flex w-full flex-col gap-3 border py-3'
+      style={{ borderRadius: 'var(--radius-lg)' }}
+    >
       <div className='flex items-center gap-2 px-4'>
         <CheckIcon className='size-4' />
         <p className=''>

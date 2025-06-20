@@ -49,7 +49,13 @@ export const Thread: FC = () => {
           <div className='min-h-8 flex-grow' />
         </ThreadPrimitive.If>
 
-        <div className='sticky bottom-0 mt-3 flex w-full max-w-[var(--thread-max-width)] flex-col items-center justify-end rounded-t-lg bg-inherit pb-4'>
+        <div
+          className='sticky bottom-0 mt-3 flex w-full max-w-[var(--thread-max-width)] flex-col items-center justify-end bg-inherit pb-4'
+          style={{
+            borderTopLeftRadius: 'var(--radius-lg)',
+            borderTopRightRadius: 'var(--radius-lg)'
+          }}
+        >
           <ThreadScrollToBottom />
           <Composer />
         </div>
@@ -64,7 +70,8 @@ const ThreadScrollToBottom: FC = () => {
       <TooltipIconButton
         tooltip='Scroll to bottom'
         variant='outline'
-        className='absolute -top-8 rounded-full disabled:invisible'
+        className='absolute -top-8 disabled:invisible'
+        style={{ borderRadius: '50%' }}
       >
         <ArrowDownIcon />
       </TooltipIconButton>
@@ -89,7 +96,8 @@ const ThreadWelcomeSuggestions: FC = () => {
   return (
     <div className='mt-3 flex w-full items-stretch justify-center gap-4'>
       <ThreadPrimitive.Suggestion
-        className='hover:bg-muted/80 flex max-w-sm grow basis-0 flex-col items-center justify-center rounded-lg border p-3 transition-colors ease-in'
+        className='hover:bg-muted/80 flex max-w-sm grow basis-0 flex-col items-center justify-center border p-3 transition-colors ease-in'
+        style={{ borderRadius: 'var(--radius-lg)' }}
         prompt='Help me write a React component'
         method='replace'
         autoSend
@@ -99,7 +107,8 @@ const ThreadWelcomeSuggestions: FC = () => {
         </span>
       </ThreadPrimitive.Suggestion>
       <ThreadPrimitive.Suggestion
-        className='hover:bg-muted/80 flex max-w-sm grow basis-0 flex-col items-center justify-center rounded-lg border p-3 transition-colors ease-in'
+        className='hover:bg-muted/80 flex max-w-sm grow basis-0 flex-col items-center justify-center border p-3 transition-colors ease-in'
+        style={{ borderRadius: 'var(--radius-lg)' }}
         prompt='Write me a poem about the moon.'
         method='replace'
         autoSend
@@ -114,7 +123,10 @@ const ThreadWelcomeSuggestions: FC = () => {
 
 const Composer: FC = () => {
   return (
-    <ComposerPrimitive.Root className='focus-within:border-ring/20 flex w-full flex-wrap items-end rounded-lg border bg-inherit px-2.5 shadow-sm transition-colors ease-in'>
+    <ComposerPrimitive.Root
+      className='focus-within:border-ring/20 flex w-full flex-wrap items-end border bg-inherit px-2.5 shadow-sm transition-colors ease-in'
+      style={{ borderRadius: 'var(--radius-lg)' }}
+    >
       <ComposerPrimitive.Input
         rows={1}
         autoFocus
@@ -166,7 +178,10 @@ const UserMessage: FC = () => {
 
       <UserActionBar />
 
-      <div className='bg-muted text-foreground col-start-2 row-start-2 max-w-[calc(var(--thread-max-width)*0.8)] rounded-3xl px-5 py-2.5 break-words'>
+      <div
+        className='bg-muted text-foreground col-start-2 row-start-2 max-w-[calc(var(--thread-max-width)*0.8)] px-5 py-2.5 break-words'
+        style={{ borderRadius: 'var(--radius-xl)' }}
+      >
         <MessagePrimitive.Content />
       </div>
 
@@ -193,7 +208,10 @@ const UserActionBar: FC = () => {
 
 const EditComposer: FC = () => {
   return (
-    <ComposerPrimitive.Root className='bg-muted my-4 flex w-full max-w-[var(--thread-max-width)] flex-col gap-2 rounded-xl'>
+    <ComposerPrimitive.Root
+      className='bg-muted my-4 flex w-full max-w-[var(--thread-max-width)] flex-col gap-2'
+      style={{ borderRadius: 'var(--radius-xl)' }}
+    >
       <ComposerPrimitive.Input className='text-foreground flex h-8 w-full resize-none bg-transparent p-4 pb-0 outline-none' />
 
       <div className='mx-3 mb-3 flex items-center justify-center gap-2 self-end'>
@@ -212,7 +230,10 @@ const AssistantMessage: FC = () => {
   return (
     <MessagePrimitive.Root className='relative grid w-full max-w-[var(--thread-max-width)] grid-cols-[auto_auto_1fr] grid-rows-[auto_1fr] gap-x-3 py-4'>
       <div className='col-start-1 row-start-1 flex justify-start'>
-        <div className='bg-primary text-primary-foreground flex size-8 items-center justify-center rounded-full'>
+        <div
+          className='bg-primary text-primary-foreground flex size-8 items-center justify-center'
+          style={{ borderRadius: '50%' }}
+        >
           <BotIcon className='size-4' />
         </div>
       </div>
@@ -236,7 +257,12 @@ const AssistantActionBar: FC = () => {
       hideWhenRunning
       autohide='not-last'
       autohideFloat='single-branch'
-      className='text-muted-foreground data-[floating]:bg-background col-start-3 row-start-2 -ml-1 flex gap-1 data-[floating]:absolute data-[floating]:rounded-md data-[floating]:border data-[floating]:p-1 data-[floating]:shadow-sm'
+      className='text-muted-foreground data-[floating]:bg-background col-start-3 row-start-2 -ml-1 flex gap-1 data-[floating]:absolute data-[floating]:border data-[floating]:p-1 data-[floating]:shadow-sm'
+      style={
+        {
+          '--data-floating-border-radius': 'var(--radius-md)'
+        } as React.CSSProperties
+      }
     >
       <ActionBarPrimitive.Copy asChild>
         <TooltipIconButton tooltip='Copy'>

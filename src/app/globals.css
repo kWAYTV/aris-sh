@@ -5,6 +5,8 @@
 
 @source "../../node_modules/@daveyplate/better-auth-ui";
 
+@import '../styles/themes.css';
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

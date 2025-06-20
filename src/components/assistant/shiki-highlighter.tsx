@@ -40,19 +40,29 @@ export const SyntaxHighlighter: FC<HighlighterProps> = ({
   ...props
 }) => {
   const BASE_STYLES =
-    '[&_pre]:overflow-x-auto [&_pre]:rounded-b-lg [&_pre]:bg-black [&_pre]:p-4 [&_pre]:text-white';
+    '[&_pre]:overflow-x-auto [&_pre]:bg-black [&_pre]:p-4 [&_pre]:text-white';
 
   return (
-    <ShikiHighlighter
-      {...props}
-      language={language}
-      theme={theme}
-      addDefaultStyles={addDefaultStyles}
-      showLanguage={showLanguage}
-      className={cn(BASE_STYLES, className)}
+    <div
+      style={
+        { '--pre-border-radius': 'var(--radius-lg)' } as React.CSSProperties
+      }
     >
-      {code}
-    </ShikiHighlighter>
+      <ShikiHighlighter
+        {...props}
+        language={language}
+        theme={theme}
+        addDefaultStyles={addDefaultStyles}
+        showLanguage={showLanguage}
+        className={cn(
+          BASE_STYLES,
+          '[&_pre]:[border-bottom-radius:var(--pre-border-radius)]',
+          className
+        )}
+      >
+        {code}
+      </ShikiHighlighter>
+    </div>
   );
 };
 

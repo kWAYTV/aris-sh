@@ -36,7 +36,13 @@ const CodeHeader: FC<CodeHeaderProps> = ({ language, code }) => {
   };
 
   return (
-    <div className='flex items-center justify-between gap-4 rounded-t-lg bg-zinc-900 px-4 py-2 text-sm font-semibold text-white'>
+    <div
+      className='flex items-center justify-between gap-4 bg-zinc-900 px-4 py-2 text-sm font-semibold text-white'
+      style={{
+        borderTopLeftRadius: 'var(--radius-lg)',
+        borderTopRightRadius: 'var(--radius-lg)'
+      }}
+    >
       <span className='lowercase [&>span]:text-xs'>{language}</span>
       <TooltipIconButton tooltip='Copy' onClick={onCopy}>
         {!isCopied && <CopyIcon />}
@@ -165,9 +171,15 @@ const defaultComponents = memoizeMarkdownComponents({
   th: ({ className, ...props }) => (
     <th
       className={cn(
-        'bg-muted px-4 py-2 text-left font-bold first:rounded-tl-lg last:rounded-tr-lg [&[align=center]]:text-center [&[align=right]]:text-right',
+        'bg-muted px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right',
         className
       )}
+      style={
+        {
+          '&:first-child': { borderTopLeftRadius: 'var(--radius-lg)' },
+          '&:last-child': { borderTopRightRadius: 'var(--radius-lg)' }
+        } as React.CSSProperties
+      }
       {...props}
     />
   ),
@@ -182,10 +194,17 @@ const defaultComponents = memoizeMarkdownComponents({
   ),
   tr: ({ className, ...props }) => (
     <tr
-      className={cn(
-        'm-0 border-b p-0 first:border-t [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg',
-        className
-      )}
+      className={cn('m-0 border-b p-0 first:border-t', className)}
+      style={
+        {
+          '&:last-child td:first-child': {
+            borderBottomLeftRadius: 'var(--radius-lg)'
+          },
+          '&:last-child td:last-child': {
+            borderBottomRightRadius: 'var(--radius-lg)'
+          }
+        } as React.CSSProperties
+      }
       {...props}
     />
   ),
@@ -197,10 +216,11 @@ const defaultComponents = memoizeMarkdownComponents({
   ),
   pre: ({ className, ...props }) => (
     <pre
-      className={cn(
-        'overflow-x-auto rounded-b-lg bg-black p-4 text-white',
-        className
-      )}
+      className={cn('overflow-x-auto bg-black p-4 text-white', className)}
+      style={{
+        borderBottomLeftRadius: 'var(--radius-lg)',
+        borderBottomRightRadius: 'var(--radius-lg)'
+      }}
       {...props}
     />
   ),
@@ -209,9 +229,10 @@ const defaultComponents = memoizeMarkdownComponents({
     return (
       <code
         className={cn(
-          !isCodeBlock && 'bg-muted rounded border font-semibold',
+          !isCodeBlock && 'bg-muted border font-semibold',
           className
         )}
+        style={!isCodeBlock ? { borderRadius: 'var(--radius)' } : undefined}
         {...props}
       />
     );

@@ -21,7 +21,8 @@ const ThreadListNew: FC = () => {
   return (
     <ThreadListPrimitive.New asChild>
       <Button
-        className='data-[active]:bg-muted hover:bg-muted flex items-center justify-start gap-1 rounded-lg px-2.5 py-2 text-start'
+        className='data-[active]:bg-muted hover:bg-muted flex items-center justify-start gap-1 px-2.5 py-2 text-start'
+        style={{ borderRadius: 'var(--radius-lg)' }}
         variant='ghost'
       >
         <PlusIcon />
@@ -37,7 +38,10 @@ const ThreadListItems: FC = () => {
 
 const ThreadListItem: FC = () => {
   return (
-    <ThreadListItemPrimitive.Root className='data-[active]:bg-muted hover:bg-muted focus-visible:bg-muted focus-visible:ring-ring flex items-center gap-2 rounded-lg transition-all focus-visible:ring-2 focus-visible:outline-none'>
+    <ThreadListItemPrimitive.Root
+      className='data-[active]:bg-muted hover:bg-muted focus-visible:bg-muted focus-visible:ring-ring flex items-center gap-2 transition-all focus-visible:ring-2 focus-visible:outline-none'
+      style={{ borderRadius: 'var(--radius-lg)' }}
+    >
       <ThreadListItemPrimitive.Trigger className='flex-grow px-3 py-2 text-start'>
         <ThreadListItemTitle />
       </ThreadListItemPrimitive.Trigger>
