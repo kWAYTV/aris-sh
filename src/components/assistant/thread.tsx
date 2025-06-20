@@ -112,27 +112,62 @@ const ThreadWelcome: FC = () => {
 
 const ThreadWelcomeSuggestions: FC = () => {
   return (
-    <div className='mt-3 flex w-full items-stretch justify-center gap-4'>
+    <div className='mt-6 flex w-full items-stretch justify-center gap-3'>
       <ThreadPrimitive.Suggestion
-        className='hover:bg-muted/80 flex max-w-sm grow basis-0 flex-col items-center justify-center border p-3 transition-colors ease-in'
-        style={{ borderRadius: 'var(--radius-lg)' }}
+        className='group border-border/50 from-background to-muted/20 hover:border-border hover:shadow-primary/5 relative flex max-w-sm grow basis-0 flex-col items-start justify-center overflow-hidden rounded-2xl border bg-gradient-to-br p-4 transition-all duration-300 ease-out hover:scale-[1.02] hover:shadow-lg'
         prompt='Help me write a React component'
         method='replace'
         autoSend
       >
-        <span className='line-clamp-2 text-sm font-semibold text-ellipsis'>
+        <div className='bg-primary/10 mb-2 rounded-lg p-2'>
+          <svg
+            className='text-primary h-4 w-4'
+            fill='none'
+            stroke='currentColor'
+            viewBox='0 0 24 24'
+          >
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              strokeWidth={2}
+              d='M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4'
+            />
+          </svg>
+        </div>
+        <span className='text-foreground/90 group-hover:text-foreground text-sm leading-relaxed font-medium'>
           Help me write a React component
         </span>
+        <span className='text-muted-foreground mt-1 text-xs'>
+          Get help building UI components
+        </span>
       </ThreadPrimitive.Suggestion>
+
       <ThreadPrimitive.Suggestion
-        className='hover:bg-muted/80 flex max-w-sm grow basis-0 flex-col items-center justify-center border p-3 transition-colors ease-in'
-        style={{ borderRadius: 'var(--radius-lg)' }}
+        className='group border-border/50 from-background to-muted/20 hover:border-border hover:shadow-primary/5 relative flex max-w-sm grow basis-0 flex-col items-start justify-center overflow-hidden rounded-2xl border bg-gradient-to-br p-4 transition-all duration-300 ease-out hover:scale-[1.02] hover:shadow-lg'
         prompt='Write me a poem about the moon.'
         method='replace'
         autoSend
       >
-        <span className='line-clamp-2 text-sm font-semibold text-ellipsis'>
-          Write me a poem about the moon.
+        <div className='bg-primary/10 mb-2 rounded-lg p-2'>
+          <svg
+            className='text-primary h-4 w-4'
+            fill='none'
+            stroke='currentColor'
+            viewBox='0 0 24 24'
+          >
+            <path
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              strokeWidth={2}
+              d='M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z'
+            />
+          </svg>
+        </div>
+        <span className='text-foreground/90 group-hover:text-foreground text-sm leading-relaxed font-medium'>
+          Write me a poem about the moon
+        </span>
+        <span className='text-muted-foreground mt-1 text-xs'>
+          Creative writing and poetry
         </span>
       </ThreadPrimitive.Suggestion>
     </div>
