@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import type { ReactNode } from 'react';
 
+import { Toaster } from '@/components/ui/sonner';
 import { authClient } from '@/lib/auth-client';
 import { getBaseUrl } from '@/lib/utils';
 
@@ -21,10 +22,12 @@ export function Providers({ children }: { children: ReactNode }) {
         router.refresh();
       }}
       Link={Link}
+      emailVerification
       avatar
       deleteUser
     >
       {children}
+      <Toaster richColors />
     </AuthUIProvider>
   );
 }

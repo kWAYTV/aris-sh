@@ -6,6 +6,7 @@ import * as React from 'react';
 import { ThreadList } from '@/components/assistant/thread-list';
 import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/ui/mode-toggle';
+import { Separator } from '@/components/ui/separator';
 import {
   Sidebar,
   SidebarContent,
@@ -42,6 +43,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
       <SidebarRail />
       <SidebarFooter>
+        <Separator />
         <SidebarMenu>
           <SidebarMenuItem>
             <div className='flex items-center justify-between gap-2 px-2 py-1'>
