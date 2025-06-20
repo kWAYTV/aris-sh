@@ -27,7 +27,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size='lg' asChild>
-              <Link href='https://aris.sh'>
+              <Link href='/'>
                 <div className='hover:bg-accent hover:text-accent-foreground flex aspect-square size-8 items-center justify-center rounded-lg border transition-colors'>
                   <Brain className='size-4' />
                 </div>

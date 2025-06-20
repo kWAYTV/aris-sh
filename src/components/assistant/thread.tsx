@@ -23,6 +23,8 @@ import { MarkdownText } from '@/components/assistant/markdown-text';
 import { ToolFallback } from '@/components/assistant/tool-fallback';
 import { TooltipIconButton } from '@/components/assistant/tooltip-icon-button';
 import { Button } from '@/components/ui/button';
+import { Spotlight } from '@/components/ui/spotlight';
+import { TextShimmer } from '@/components/ui/text-shimmer';
 import { useSession } from '@/lib/auth-client';
 import { cn } from '@/lib/utils';
 
@@ -84,7 +86,9 @@ const ThreadWelcome: FC = () => {
     <ThreadPrimitive.Empty>
       <div className='flex w-full max-w-[var(--thread-max-width)] flex-grow flex-col'>
         <div className='flex w-full flex-grow flex-col items-center justify-center'>
-          <p className='mt-4 font-medium'>How can I help you today?</p>
+          <TextShimmer className='mt-4 font-medium'>
+            How can I help you today?
+          </TextShimmer>
         </div>
         <ThreadWelcomeSuggestions />
       </div>
@@ -123,18 +127,24 @@ const ThreadWelcomeSuggestions: FC = () => {
 
 const Composer: FC = () => {
   return (
-    <ComposerPrimitive.Root
-      className='focus-within:border-ring/20 flex w-full flex-wrap items-end border bg-inherit px-2.5 shadow-sm transition-colors ease-in'
+    <div
+      className='via-border/50 relative w-full bg-gradient-to-r from-transparent to-transparent p-[1px]'
       style={{ borderRadius: 'var(--radius-lg)' }}
     >
-      <ComposerPrimitive.Input
-        rows={1}
-        autoFocus
-        placeholder='Write a message...'
-        className='placeholder:text-muted-foreground max-h-40 flex-grow resize-none border-none bg-transparent px-2 py-4 text-sm outline-none focus:ring-0 disabled:cursor-not-allowed'
-      />
-      <ComposerAction />
-    </ComposerPrimitive.Root>
+      <Spotlight className='from-blue-600 via-blue-500 to-blue-400 dark:from-blue-400 dark:via-blue-300 dark:to-blue-200' />
+      <ComposerPrimitive.Root
+        className='focus-within:border-ring/20 flex w-full flex-wrap items-end border bg-inherit px-2.5 shadow-sm transition-colors ease-in'
+        style={{ borderRadius: 'var(--radius-lg)' }}
+      >
+        <ComposerPrimitive.Input
+          rows={1}
+          autoFocus
+          placeholder='Write a message...'
+          className='placeholder:text-muted-foreground max-h-40 flex-grow resize-none border-none bg-transparent px-2 py-4 text-sm outline-none focus:ring-0 disabled:cursor-not-allowed'
+        />
+        <ComposerAction />
+      </ComposerPrimitive.Root>
+    </div>
   );
 };
 
