@@ -1,6 +1,6 @@
 import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
-import { magicLink, twoFactor, username } from 'better-auth/plugins';
+import { apiKey, magicLink, twoFactor, username } from 'better-auth/plugins';
 
 /* import { haveIBeenPwned } from 'better-auth/plugins'; */
 import { sendEmailAction } from '@/actions/email/send-email.action';
@@ -94,6 +94,10 @@ export const auth = betterAuth({
   },
 
   plugins: [
+    apiKey({
+      enableMetadata: true
+    }),
+
     username({
       minUsernameLength: 3,
       maxUsernameLength: 12

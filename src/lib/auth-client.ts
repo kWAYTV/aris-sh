@@ -1,4 +1,5 @@
 import {
+  apiKeyClient,
   magicLinkClient,
   twoFactorClient,
   usernameClient
@@ -11,6 +12,7 @@ const CONFIG = {
   baseURL: getBaseUrl(),
 
   plugins: [
+    apiKeyClient(),
     magicLinkClient(),
     usernameClient(),
 

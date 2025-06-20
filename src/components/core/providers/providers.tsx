@@ -29,6 +29,12 @@ export function Providers({ children }: { children: ReactNode }) {
       social={{
         providers: ['twitter']
       }}
+      apiKey={{
+        prefix: 'aris_',
+        metadata: {
+          environment: process.env.NODE_ENV === 'development' ? 'dev' : 'prod'
+        }
+      }}
       twoFactor={['totp']}
       emailVerification
       avatar
