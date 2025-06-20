@@ -42,6 +42,7 @@ export function Providers({ children }: { children: ReactNode }) {
       emailVerification
       avatar
       magicLink
+      multiSession
       deleteUser
     >
       {children}

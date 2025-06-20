@@ -1,6 +1,8 @@
 import {
+  adminClient,
   apiKeyClient,
   magicLinkClient,
+  multiSessionClient,
   twoFactorClient,
   usernameClient
 } from 'better-auth/client/plugins';
@@ -13,8 +15,10 @@ const CONFIG = {
   baseURL: getBaseUrl(),
 
   plugins: [
+    adminClient(),
     apiKeyClient(),
     magicLinkClient(),
+    multiSessionClient(),
     usernameClient(),
 
     twoFactorClient({

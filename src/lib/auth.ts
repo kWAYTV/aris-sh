@@ -2,10 +2,12 @@ import { betterAuth } from 'better-auth';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { nextCookies } from 'better-auth/next-js';
 import {
+  admin,
   apiKey,
   captcha,
   haveIBeenPwned,
   magicLink,
+  multiSession,
   twoFactor,
   username
 } from 'better-auth/plugins';
@@ -43,13 +45,6 @@ export const auth = betterAuth({
     modelName: 'rateLimit'
   },
 
-  session: {
-    cookieCache: {
-      enabled: true,
-      maxAge: 3 * 60 // Cache duration in seconds
-    }
-  },
-
   user: {
     deleteUser: {
       enabled: true
@@ -73,7 +68,7 @@ export const auth = betterAuth({
 
   emailAndPassword: {
     enabled: true,
-    requireEmailVerification: false,
+    requireEmailVerification: true,
 
     password: {
       hash: hashPassword,
@@ -120,6 +115,8 @@ export const auth = betterAuth({
   },
 
   plugins: [
+    admin(),
+
     apiKey({
       enableMetadata: true
     }),
@@ -145,6 +142,10 @@ export const auth = betterAuth({
           })
         });
       }
+    }),
+
+    multiSession({
+      maximumSessions: 3
     }),
 
     twoFactor({

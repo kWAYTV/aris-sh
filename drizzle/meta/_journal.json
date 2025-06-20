@@ -36,6 +36,13 @@
       "when": 1750440346440,
       "tag": "0004_strong_living_tribunal",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1750453468980,
+      "tag": "0005_brown_phantom_reporter",
+      "breakpoints": true
     }
   ]
 }
