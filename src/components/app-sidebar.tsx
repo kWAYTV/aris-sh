@@ -1,10 +1,11 @@
 import { UserButton } from '@daveyplate/better-auth-ui';
-import { Github, MessagesSquare } from 'lucide-react';
+import { Brain, Github } from 'lucide-react';
 import Link from 'next/link';
 import * as React from 'react';
 
 import { ThreadList } from '@/components/assistant/thread-list';
 import ThemeButton from '@/components/core/themes/theme-button';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/ui/mode-toggle';
 import { Separator } from '@/components/ui/separator';
@@ -28,11 +29,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarMenuButton size='lg' asChild>
               <Link href='https://aris.sh'>
                 <div className='hover:bg-accent hover:text-accent-foreground flex aspect-square size-8 items-center justify-center rounded-lg border transition-colors'>
-                  <MessagesSquare className='size-4' />
+                  <Brain className='size-4' />
                 </div>
                 <div className='flex flex-col gap-0.5 leading-none'>
                   <span className='font-semibold'>aris.sh</span>
                 </div>
+                <Badge variant='outline' className='ml-auto'>
+                  <span className='text-xs'>beta</span>
+                </Badge>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

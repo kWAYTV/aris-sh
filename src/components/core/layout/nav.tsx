@@ -5,6 +5,7 @@ import { Brain } from 'lucide-react';
 import Link from 'next/link';
 
 import ThemeButton from '@/components/core/themes/theme-button';
+import { Badge } from '@/components/ui/badge';
 import { ModeToggle } from '@/components/ui/mode-toggle';
 import { cn } from '@/lib/utils';
 
@@ -26,6 +27,9 @@ export default function Navbar() {
             >
               <Brain className='h-6 w-6 transition-transform duration-200 group-hover:scale-110' />
               <span className='font-mono text-xl font-bold'>aris.sh</span>
+              <Badge variant='outline' className='ml-auto'>
+                <span className='text-xs'>beta</span>
+              </Badge>
             </Link>
           </div>
 
