@@ -25,19 +25,6 @@ export function GitHubStars() {
   const [error, setError] = useState<string | null>(null);
 
   const fetchStars = useCallback(async () => {
-    const cached = localStorage.getItem('github-stars');
-    const cacheTime = localStorage.getItem('github-stars-time');
-
-    if (cached && cacheTime) {
-      const timeDiff = Date.now() - parseInt(cacheTime);
-      // Cache for 5 minutes
-      if (timeDiff < 5 * 60 * 1000) {
-        setStars(parseInt(cached));
-        setState('success');
-        return;
-      }
-    }
-
     setState('loading');
     setError(null);
 
@@ -51,14 +38,8 @@ export function GitHubStars() {
       }
 
       const data: GitHubRepo = await response.json();
-      const starCount = data.stargazers_count;
-
-      setStars(starCount);
+      setStars(data.stargazers_count);
       setState('success');
-
-      // Cache the result
-      localStorage.setItem('github-stars', starCount.toString());
-      localStorage.setItem('github-stars-time', Date.now().toString());
     } catch (err) {
       const errorMsg =
         err instanceof Error ? err.message : 'Failed to fetch stars';
@@ -79,9 +60,6 @@ export function GitHubStars() {
   };
 
   const handleRetry = () => {
-    // Clear cache on retry
-    localStorage.removeItem('github-stars');
-    localStorage.removeItem('github-stars-time');
     fetchStars();
   };
 
