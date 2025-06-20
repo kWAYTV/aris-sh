@@ -5,8 +5,10 @@ import {
   MessagePrimitive,
   ThreadPrimitive
 } from '@assistant-ui/react';
+import { UserAvatar } from '@daveyplate/better-auth-ui';
 import {
   ArrowDownIcon,
+  BotIcon,
   CheckIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -21,6 +23,7 @@ import { MarkdownText } from '@/components/assistant/markdown-text';
 import { ToolFallback } from '@/components/assistant/tool-fallback';
 import { TooltipIconButton } from '@/components/assistant/tooltip-icon-button';
 import { Button } from '@/components/ui/button';
+import { useSession } from '@/lib/auth-client';
 import { cn } from '@/lib/utils';
 
 export const Thread: FC = () => {
@@ -153,8 +156,14 @@ const ComposerAction: FC = () => {
 };
 
 const UserMessage: FC = () => {
+  const { data: session } = useSession();
+
   return (
-    <MessagePrimitive.Root className='grid w-full max-w-[var(--thread-max-width)] auto-rows-auto grid-cols-[minmax(72px,1fr)_auto] gap-y-2 py-4 [&:where(>*)]:col-start-2'>
+    <MessagePrimitive.Root className='grid w-full max-w-[var(--thread-max-width)] auto-rows-auto grid-cols-[auto_minmax(72px,1fr)_auto] gap-x-3 gap-y-2 py-4'>
+      <div className='col-start-3 row-start-2 flex justify-end'>
+        <UserAvatar user={session?.user || null} size='sm' className='size-8' />
+      </div>
+
       <UserActionBar />
 
       <div className='bg-muted text-foreground col-start-2 row-start-2 max-w-[calc(var(--thread-max-width)*0.8)] rounded-3xl px-5 py-2.5 break-words'>
@@ -171,7 +180,7 @@ const UserActionBar: FC = () => {
     <ActionBarPrimitive.Root
       hideWhenRunning
       autohide='not-last'
-      className='col-start-1 row-start-2 mt-2.5 mr-3 flex flex-col items-end'
+      className='col-start-1 row-start-2 mt-2.5 flex flex-col items-start'
     >
       <ActionBarPrimitive.Edit asChild>
         <TooltipIconButton tooltip='Edit'>
@@ -201,7 +210,13 @@ const EditComposer: FC = () => {
 
 const AssistantMessage: FC = () => {
   return (
-    <MessagePrimitive.Root className='relative grid w-full max-w-[var(--thread-max-width)] grid-cols-[auto_auto_1fr] grid-rows-[auto_1fr] py-4'>
+    <MessagePrimitive.Root className='relative grid w-full max-w-[var(--thread-max-width)] grid-cols-[auto_auto_1fr] grid-rows-[auto_1fr] gap-x-3 py-4'>
+      <div className='col-start-1 row-start-1 flex justify-start'>
+        <div className='bg-primary text-primary-foreground flex size-8 items-center justify-center rounded-full'>
+          <BotIcon className='size-4' />
+        </div>
+      </div>
+
       <div className='text-foreground col-span-2 col-start-2 row-start-1 my-1.5 max-w-[calc(var(--thread-max-width)*0.8)] leading-7 break-words'>
         <MessagePrimitive.Content
           components={{ Text: MarkdownText, tools: { Fallback: ToolFallback } }}
