@@ -2,6 +2,7 @@
 
 import { AssistantRuntimeProvider } from '@assistant-ui/react';
 import { useChatRuntime } from '@assistant-ui/react-ai-sdk';
+import { Brain } from 'lucide-react';
 
 import { AppSidebar } from '@/components/app-sidebar';
 import { Thread } from '@/components/assistant/thread';
@@ -37,7 +38,7 @@ export const Assistant = () => {
               <BreadcrumbList>
                 <BreadcrumbItem className='hidden md:block'>
                   <BreadcrumbLink href='#'>
-                    Thanks for all the moments together.
+                    <Brain className='size-4' />
                   </BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className='hidden md:block' />
