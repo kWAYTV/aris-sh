@@ -19,9 +19,9 @@ import {
 import { cn } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
-import { MarkdownText } from "@/components/assistant-ui/markdown-text";
-import { TooltipIconButton } from "@/components/assistant-ui/tooltip-icon-button";
-import { ToolFallback } from "./tool-fallback";
+import { MarkdownText } from "@/components/assistant/markdown-text";
+import { TooltipIconButton } from "@/components/assistant/tooltip-icon-button";
+import { ToolFallback } from "@/components/assistant/tool-fallback";
 
 export const Thread: FC = () => {
   return (
@@ -97,12 +97,12 @@ const ThreadWelcomeSuggestions: FC = () => {
       </ThreadPrimitive.Suggestion>
       <ThreadPrimitive.Suggestion
         className="hover:bg-muted/80 flex max-w-sm grow basis-0 flex-col items-center justify-center rounded-lg border p-3 transition-colors ease-in"
-        prompt="What is assistant-ui?"
+        prompt="Write me a poem about the moon."
         method="replace"
         autoSend
       >
         <span className="line-clamp-2 text-ellipsis text-sm font-semibold">
-          What is assistant-ui?
+          Write me a poem about the moon.
         </span>
       </ThreadPrimitive.Suggestion>
     </div>
