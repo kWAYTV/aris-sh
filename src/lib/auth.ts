@@ -28,6 +28,14 @@ export const auth = betterAuth({
     }
   },
 
+  rateLimit: {
+    enabled: true,
+    window: 10, // time window in seconds
+    max: 100, // max requests in the window,
+    storage: 'database',
+    modelName: 'rateLimit'
+  },
+
   user: {
     deleteUser: {
       enabled: true
@@ -125,3 +133,5 @@ export const auth = betterAuth({
     }) */
   ]
 });
+
+export type Session = typeof auth.$Infer.Session;

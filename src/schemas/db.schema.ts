@@ -1,4 +1,5 @@
 import {
+  bigint,
   boolean,
   integer,
   pgTable,
@@ -102,4 +103,11 @@ export const twoFactor = pgTable('two_factor', {
   userId: text('user_id')
     .notNull()
     .references(() => user.id, { onDelete: 'cascade' })
+});
+
+export const rateLimit = pgTable('rate_limit', {
+  id: text('id').primaryKey(),
+  key: text('key'),
+  count: integer('count'),
+  lastRequest: bigint('last_request', { mode: 'number' })
 });
