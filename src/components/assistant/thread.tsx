@@ -85,6 +85,7 @@ const ThreadScrollToBottom: FC = () => {
 const ThreadWelcome: FC = () => {
   'use client';
   const { data: session } = useSession();
+
   if (!session) return null;
 
   const user = session.user;

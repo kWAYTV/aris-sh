@@ -205,20 +205,6 @@ export const columns: ColumnDef<User>[] = [
 
               <DropdownMenuSeparator />
 
-              <DropdownMenuItem
-                className='flex items-center gap-2'
-                onClick={async () => {
-                  // This will be handled by the parent component
-                  const event = new CustomEvent('openUserSessions', {
-                    detail: { user }
-                  });
-                  window.dispatchEvent(event);
-                }}
-              >
-                <Shield className='h-4 w-4' />
-                View sessions
-              </DropdownMenuItem>
-
               {user.banned && (
                 <DropdownMenuItem
                   className='flex items-center gap-2'
