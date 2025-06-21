@@ -64,6 +64,11 @@ export function DashboardSkeleton() {
             </div>
           </CardContent>
         </Card>
+
+        {/* JSON Debug skeleton */}
+        <div className='space-y-2'>
+          <Skeleton className='h-10 w-full rounded-md' />
+        </div>
       </div>
     </div>
   );
