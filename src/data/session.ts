@@ -2,7 +2,7 @@
 
 import { headers } from 'next/headers';
 
-import { auth, type Session } from '@/lib/auth';
+import { auth, type Session, type User } from '@/lib/auth';
 
 export const getSession = async (): Promise<Session | null> => {
   const session = await auth.api.getSession({
@@ -16,7 +16,7 @@ export const getSession = async (): Promise<Session | null> => {
   return session;
 };
 
-export const getUser = async (): Promise<Session['user'] | null> => {
+export const getUser = async (): Promise<User | null> => {
   const session = await getSession();
 
   if (!session || !session.user) {

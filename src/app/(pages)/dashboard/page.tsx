@@ -1,11 +1,12 @@
 import { SignedIn } from '@daveyplate/better-auth-ui';
 import { redirect } from 'next/navigation';
+import { Suspense } from 'react';
 
-import { GoButton } from '@/components/core/shared/go-button';
-import { JsonViewer } from '@/components/core/shared/json-viewer';
+import { DashboardClient } from '@/components/core/dashboard/dashboard-client';
+import { DashboardSkeleton } from '@/components/core/skeletons/dashboard-skeleton';
 import { getUser } from '@/data/session';
 
-export default async function ThemePage() {
+export default async function DashboardPage() {
   const user = await getUser();
 
   if (!user) return redirect('/dashboard');
@@ -13,17 +14,9 @@ export default async function ThemePage() {
   return (
     <>
       <SignedIn>
-        <div className='flex h-full items-center justify-center p-6'>
-          <div className='w-full max-w-[480px] space-y-4'>
-            <div className='flex items-center justify-between'>
-              <h1>Dashboard</h1>
-              {user.role === 'admin' && (
-                <GoButton href='/dashboard/admin' label='Admin Dashboard' />
-              )}
-            </div>
-            <JsonViewer data={user} className='overflow-x-auto text-sm' />
-          </div>
-        </div>
+        <Suspense fallback={<DashboardSkeleton />}>
+          <DashboardClient user={user} />
+        </Suspense>
       </SignedIn>
     </>
   );
