@@ -192,7 +192,7 @@ export const columns: ColumnDef<User>[] = [
                 className='flex items-center gap-2'
               >
                 <Copy className='h-4 w-4' />
-                Copy user ID
+                Copy ID
               </DropdownMenuItem>
 
               <DropdownMenuItem
@@ -200,14 +200,23 @@ export const columns: ColumnDef<User>[] = [
                 className='flex items-center gap-2'
               >
                 <Mail className='h-4 w-4' />
-                Copy email
+                Copy Email
               </DropdownMenuItem>
 
               <DropdownMenuSeparator />
 
-              <DropdownMenuItem className='flex items-center gap-2'>
-                <Eye className='h-4 w-4' />
-                View details
+              <DropdownMenuItem
+                className='flex items-center gap-2'
+                onClick={async () => {
+                  // This will be handled by the parent component
+                  const event = new CustomEvent('openUserSessions', {
+                    detail: { user }
+                  });
+                  window.dispatchEvent(event);
+                }}
+              >
+                <Shield className='h-4 w-4' />
+                View sessions
               </DropdownMenuItem>
 
               {user.banned && (
@@ -284,8 +293,20 @@ export const columns: ColumnDef<User>[] = [
                 </AlertDialog>
               )}
 
-              {/* Delete action */}
               <DropdownMenuSeparator />
+
+              {!user.banned && user.role === 'admin' && (
+                <DropdownMenuItem
+                  disabled
+                  className='text-muted-foreground flex items-center gap-2'
+                >
+                  <Shield className='h-4 w-4' />
+                  Ban user
+                  <span className='ml-auto text-xs'>(Admin)</span>
+                </DropdownMenuItem>
+              )}
+
+              {/* Delete action */}
               {user.role === 'user' ? (
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
