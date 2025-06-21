@@ -215,12 +215,12 @@ export const columns: ColumnDef<User>[] = [
                       className='flex items-center gap-2'
                       onClick={async () => {
                         try {
-                          const { admin } = await import('@/lib/auth-client');
+                          const { unbanUser } = await import(
+                            '@/helpers/admin-actions'
+                          );
                           const { toast } = await import('sonner');
 
-                          await admin.unbanUser({
-                            userId: user.id
-                          });
+                          await unbanUser(user.id);
 
                           toast.success('User unbanned successfully');
                           window.location.reload();
@@ -262,15 +262,12 @@ export const columns: ColumnDef<User>[] = [
                             className='bg-orange-600 text-white hover:bg-orange-700'
                             onClick={async () => {
                               try {
-                                const { admin } = await import(
-                                  '@/lib/auth-client'
+                                const { banUser } = await import(
+                                  '@/helpers/admin-actions'
                                 );
                                 const { toast } = await import('sonner');
 
-                                await admin.banUser({
-                                  userId: user.id,
-                                  banReason: 'Banned by admin'
-                                });
+                                await banUser(user.id, 'Banned by admin');
 
                                 toast.success('User banned successfully');
                                 window.location.reload();

@@ -3,10 +3,7 @@
 import { Suspense, useState } from 'react';
 import { toast } from 'sonner';
 
-import {
-  bulkChangeRoleAction,
-  bulkDeleteUsersAction
-} from '@/actions/admin/bulk-user-actions.action';
+import { bulkChangeRoleAction } from '@/actions/admin/bulk-user-actions.action';
 import { UsersDataTable } from '@/components/core/admin/users-table/users-data-table';
 import { columns } from '@/components/core/admin/users-table/users-table-columns';
 import { UsersTableSkeleton } from '@/components/core/admin/users-table/users-table-skeleton';
@@ -22,12 +19,10 @@ export function AdminDashboardClient({ users }: AdminDashboardClientProps) {
   async function handleBulkDelete(userIds: string[]) {
     setIsLoading(true);
     try {
-      const result = await bulkDeleteUsersAction({ userIds });
-      if (result.error) {
-        toast.error(result.error);
-      } else {
-        toast.success(result.success);
-      }
+      const { bulkDeleteUsers } = await import('@/helpers/admin-actions');
+      await bulkDeleteUsers(userIds);
+      toast.success(`${userIds.length} user(s) deleted successfully`);
+      window.location.reload();
     } catch {
       toast.error('Failed to delete users');
     } finally {
