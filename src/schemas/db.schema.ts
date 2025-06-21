@@ -8,13 +8,7 @@ import {
   timestamp
 } from 'drizzle-orm/pg-core';
 
-export const UserRole = {
-  ADMIN: 'admin',
-  USER: 'user'
-} as const;
-
-export const USER_ROLES = Object.values(UserRole);
-export const userRoles = pgEnum('user_roles', UserRole);
+export const userRoles = pgEnum('user_roles', ['admin', 'user']);
 
 export const user = pgTable('user', {
   id: text('id').primaryKey(),
@@ -30,7 +24,7 @@ export const user = pgTable('user', {
   updatedAt: timestamp('updated_at')
     .$defaultFn(() => /* @__PURE__ */ new Date())
     .notNull(),
-  role: userRoles('role').default(UserRole.USER).notNull(),
+  role: userRoles('role').default('user').notNull(),
   banned: boolean('banned'),
   banReason: text('ban_reason'),
   banExpires: timestamp('ban_expires'),

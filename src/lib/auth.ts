@@ -19,7 +19,6 @@ import { sendEmailAction } from '@/actions/email/send-email.action';
 import { env } from '@/env';
 import { db } from '@/lib/db';
 import { hashPassword, verifyPassword } from '@/lib/hash';
-import { UserRole } from '@/schemas/db.schema';
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -115,10 +114,7 @@ export const auth = betterAuth({
   },
 
   plugins: [
-    admin({
-      defaultRole: UserRole.USER,
-      adminRoles: [UserRole.ADMIN]
-    }),
+    admin(),
 
     apiKey({
       enableMetadata: true

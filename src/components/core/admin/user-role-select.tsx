@@ -13,13 +13,13 @@ import {
   SelectValue
 } from '@/components/ui/select';
 import { admin } from '@/lib/auth-client';
-import { USER_ROLES, UserRole } from '@/schemas/db.schema';
+import { userRoles } from '@/schemas/db.schema';
 
-type UserRoleType = (typeof UserRole)[keyof typeof UserRole];
+type UserRole = (typeof userRoles.enumValues)[number];
 
 interface UserRoleSelectProps {
   userId: string;
-  role: UserRoleType;
+  role: UserRole;
 }
 
 export const UserRoleSelect = ({ userId, role }: UserRoleSelectProps) => {
@@ -27,7 +27,7 @@ export const UserRoleSelect = ({ userId, role }: UserRoleSelectProps) => {
   const router = useRouter();
 
   async function handleChange(newRole: string) {
-    const canChangeRole = await admin.hasPermission({
+    /* const canChangeRole = await admin.hasPermission({
       permissions: {
         user: ['set-role']
       }
@@ -35,11 +35,11 @@ export const UserRoleSelect = ({ userId, role }: UserRoleSelectProps) => {
 
     if (!canChangeRole.error) {
       return toast.error('Forbidden');
-    }
+    } */
 
     await admin.setRole({
       userId,
-      role: newRole as UserRoleType,
+      role: newRole as UserRole,
       fetchOptions: {
         onRequest: () => {
           setIsPending(true);
@@ -63,13 +63,13 @@ export const UserRoleSelect = ({ userId, role }: UserRoleSelectProps) => {
       <Select
         value={role}
         onValueChange={handleChange}
-        disabled={role === UserRole.ADMIN || isPending}
+        disabled={role === 'admin' || isPending}
       >
         <SelectTrigger className='w-[120px]'>
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
-          {USER_ROLES.map(roleValue => (
+          {userRoles.enumValues.map(roleValue => (
             <SelectItem key={roleValue} value={roleValue}>
               {roleValue.charAt(0).toUpperCase() + roleValue.slice(1)}
             </SelectItem>

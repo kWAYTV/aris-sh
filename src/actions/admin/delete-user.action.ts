@@ -1,20 +1,18 @@
 'use server';
 
 import { APIError } from 'better-auth/api';
-import { and } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
 
 import { getSession } from '@/data/session';
 import { db, eq } from '@/lib/db';
 import { user } from '@/schemas/db.schema';
-import { UserRole } from '@/schemas/db.schema';
 
 export async function deleteUserAction({ userId }: { userId: string }) {
   const session = await getSession();
 
   if (!session) throw new Error('Unauthorized');
 
-  if (session.user.role !== UserRole.ADMIN) {
+  if (session.user.role !== 'admin') {
     throw new Error('Forbidden');
   }
 
@@ -23,16 +21,10 @@ export async function deleteUserAction({ userId }: { userId: string }) {
   }
 
   try {
-    const result = await db
-      .delete(user)
-      .where(and(eq(user.id, userId), eq(user.role, UserRole.USER)));
-
-    if (result.length === 0) {
-      throw new Error('User not found or cannot delete non-user accounts');
-    }
+    await db.delete(user).where(eq(user.id, userId));
 
     revalidatePath('/dashboard/admin');
-    return { success: true };
+    return { success: true, error: null };
   } catch (err) {
     if (err instanceof APIError) {
       return { success: false, error: err.message };
