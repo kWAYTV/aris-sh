@@ -2,13 +2,17 @@
 
 import { type ColumnDef } from '@tanstack/react-table';
 import { formatDistanceToNow } from 'date-fns';
-import { MoreHorizontal } from 'lucide-react';
+import {
+  Copy,
+  Eye,
+  Mail,
+  MoreHorizontal,
+  Shield,
+  ShieldOff,
+  Trash2
+} from 'lucide-react';
 
 import { DataTableColumnHeader } from '@/components/core/admin/users-table/data-table-column-header';
-import {
-  DeleteUserButton,
-  PlaceholderDeleteUserButton
-} from '@/components/core/admin/users-table/delete-user-button';
 import { UserRoleSelect } from '@/components/core/admin/users-table/user-role-select';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -157,37 +161,102 @@ export const columns: ColumnDef<User>[] = [
       const user = row.original;
 
       return (
-        <div className='flex items-center justify-center gap-2'>
-          {user.role === 'user' ? (
-            <DeleteUserButton userId={user.id} />
-          ) : (
-            <PlaceholderDeleteUserButton />
-          )}
-
+        <div className='flex items-center justify-center'>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant='ghost' className='h-8 w-8 p-0'>
                 <span className='sr-only'>Open menu</span>
-                <MoreHorizontal />
+                <MoreHorizontal className='h-4 w-4' />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align='end'>
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuContent align='end' className='w-48'>
+              <DropdownMenuLabel className='flex items-center gap-2'>
+                <Eye className='h-4 w-4' />
+                Actions
+              </DropdownMenuLabel>
               <DropdownMenuSeparator />
+
               <DropdownMenuItem
                 onClick={() => navigator.clipboard.writeText(user.id)}
+                className='flex items-center gap-2'
               >
+                <Copy className='h-4 w-4' />
                 Copy user ID
               </DropdownMenuItem>
+
               <DropdownMenuItem
                 onClick={() => navigator.clipboard.writeText(user.email)}
+                className='flex items-center gap-2'
               >
+                <Mail className='h-4 w-4' />
                 Copy email
               </DropdownMenuItem>
-              {user.banned && <DropdownMenuItem>Unban user</DropdownMenuItem>}
+
+              <DropdownMenuSeparator />
+
+              <DropdownMenuItem className='flex items-center gap-2'>
+                <Eye className='h-4 w-4' />
+                View details
+              </DropdownMenuItem>
+
+              {user.banned && (
+                <DropdownMenuItem className='flex items-center gap-2'>
+                  <ShieldOff className='h-4 w-4' />
+                  Unban user
+                </DropdownMenuItem>
+              )}
+
               {!user.banned && user.role === 'user' && (
-                <DropdownMenuItem className='text-destructive'>
+                <DropdownMenuItem className='flex items-center gap-2 text-orange-600'>
+                  <Shield className='h-4 w-4' />
                   Ban user
+                </DropdownMenuItem>
+              )}
+
+              {/* Delete action */}
+              <DropdownMenuSeparator />
+              {user.role === 'user' ? (
+                <DropdownMenuItem
+                  className='text-destructive focus:text-destructive flex items-center gap-2'
+                  onClick={async () => {
+                    if (
+                      window.confirm(
+                        'Are you sure you want to delete this user? This action cannot be undone.'
+                      )
+                    ) {
+                      try {
+                        const { deleteUserAction } = await import(
+                          '@/actions/admin/delete-user.action'
+                        );
+                        const { toast } = await import('sonner');
+
+                        const result = await deleteUserAction({
+                          userId: user.id
+                        });
+
+                        if (result.error) {
+                          toast.error(result.error);
+                        } else {
+                          toast.success('User deleted successfully');
+                        }
+                      } catch {
+                        const { toast } = await import('sonner');
+                        toast.error('Failed to delete user');
+                      }
+                    }
+                  }}
+                >
+                  <Trash2 className='h-4 w-4' />
+                  Delete user
+                </DropdownMenuItem>
+              ) : (
+                <DropdownMenuItem
+                  disabled
+                  className='text-muted-foreground flex items-center gap-2'
+                >
+                  <Trash2 className='h-4 w-4' />
+                  Delete user
+                  <span className='ml-auto text-xs'>(Admin)</span>
                 </DropdownMenuItem>
               )}
             </DropdownMenuContent>
