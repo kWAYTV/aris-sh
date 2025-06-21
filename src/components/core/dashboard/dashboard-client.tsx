@@ -3,6 +3,7 @@
 import { type User } from '@/lib/auth';
 
 import { DashboardHeader } from './dashboard-header';
+import { JsonDebug } from './json-debug';
 import { ProfileCard } from './profile-card';
 
 interface DashboardClientProps {
@@ -15,6 +16,7 @@ export function DashboardClient({ user }: DashboardClientProps) {
       <div className='w-full max-w-2xl space-y-6'>
         <DashboardHeader user={user} />
         <ProfileCard user={user} />
+        <JsonDebug user={user} />
       </div>
     </div>
   );
