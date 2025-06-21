@@ -68,3 +68,17 @@ export async function bulkUnbanUsers(userIds: string[]) {
     throw new Error('Unexpected error occurred while unbanning users');
   }
 }
+
+// User Management Functions
+export async function deleteUser(userId: string) {
+  if (!userId) {
+    throw new Error('User ID is required');
+  }
+
+  try {
+    await admin.removeUser({ userId });
+  } catch (error) {
+    console.error(`Failed to delete user ${userId}:`, error);
+    throw new Error('Failed to delete user');
+  }
+}

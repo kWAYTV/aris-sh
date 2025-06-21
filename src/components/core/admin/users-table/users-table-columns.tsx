@@ -203,96 +203,105 @@ export const columns: ColumnDef<User>[] = [
                 Copy Email
               </DropdownMenuItem>
 
-              <DropdownMenuSeparator />
+              {/* Ban/Unban Actions */}
+              {(user.banned ||
+                (!user.banned && user.role === 'user') ||
+                (!user.banned && user.role === 'admin')) && (
+                <>
+                  <DropdownMenuSeparator />
 
-              {user.banned && (
-                <DropdownMenuItem
-                  className='flex items-center gap-2'
-                  onClick={async () => {
-                    try {
-                      const { admin } = await import('@/lib/auth-client');
-                      const { toast } = await import('sonner');
-
-                      await admin.unbanUser({
-                        userId: user.id
-                      });
-
-                      toast.success('User unbanned successfully');
-                      window.location.reload();
-                    } catch {
-                      const { toast } = await import('sonner');
-                      toast.error('Failed to unban user');
-                    }
-                  }}
-                >
-                  <ShieldOff className='h-4 w-4' />
-                  Unban user
-                </DropdownMenuItem>
-              )}
-
-              {!user.banned && user.role === 'user' && (
-                <AlertDialog>
-                  <AlertDialogTrigger asChild>
+                  {user.banned && (
                     <DropdownMenuItem
-                      className='flex items-center gap-2 text-orange-600'
-                      onSelect={e => e.preventDefault()}
+                      className='flex items-center gap-2'
+                      onClick={async () => {
+                        try {
+                          const { admin } = await import('@/lib/auth-client');
+                          const { toast } = await import('sonner');
+
+                          await admin.unbanUser({
+                            userId: user.id
+                          });
+
+                          toast.success('User unbanned successfully');
+                          window.location.reload();
+                        } catch {
+                          const { toast } = await import('sonner');
+                          toast.error('Failed to unban user');
+                        }
+                      }}
+                    >
+                      <ShieldOff className='h-4 w-4' />
+                      Unban user
+                    </DropdownMenuItem>
+                  )}
+
+                  {!user.banned && user.role === 'user' && (
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <DropdownMenuItem
+                          className='flex items-center gap-2 text-orange-600'
+                          onSelect={e => e.preventDefault()}
+                        >
+                          <Shield className='h-4 w-4' />
+                          Ban user
+                        </DropdownMenuItem>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Ban User</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            Are you sure you want to ban{' '}
+                            <strong>{user.name}</strong>? This will prevent them
+                            from signing in and revoke all their existing
+                            sessions.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction
+                            className='bg-orange-600 text-white hover:bg-orange-700'
+                            onClick={async () => {
+                              try {
+                                const { admin } = await import(
+                                  '@/lib/auth-client'
+                                );
+                                const { toast } = await import('sonner');
+
+                                await admin.banUser({
+                                  userId: user.id,
+                                  banReason: 'Banned by admin'
+                                });
+
+                                toast.success('User banned successfully');
+                                window.location.reload();
+                              } catch {
+                                const { toast } = await import('sonner');
+                                toast.error('Failed to ban user');
+                              }
+                            }}
+                          >
+                            Ban User
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  )}
+
+                  {!user.banned && user.role === 'admin' && (
+                    <DropdownMenuItem
+                      disabled
+                      className='text-muted-foreground flex items-center gap-2'
                     >
                       <Shield className='h-4 w-4' />
                       Ban user
+                      <span className='ml-auto text-xs'>(Admin)</span>
                     </DropdownMenuItem>
-                  </AlertDialogTrigger>
-                  <AlertDialogContent>
-                    <AlertDialogHeader>
-                      <AlertDialogTitle>Ban User</AlertDialogTitle>
-                      <AlertDialogDescription>
-                        Are you sure you want to ban{' '}
-                        <strong>{user.name}</strong>? This will prevent them
-                        from signing in and revoke all their existing sessions.
-                      </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction
-                        className='bg-orange-600 text-white hover:bg-orange-700'
-                        onClick={async () => {
-                          try {
-                            const { admin } = await import('@/lib/auth-client');
-                            const { toast } = await import('sonner');
-
-                            await admin.banUser({
-                              userId: user.id,
-                              banReason: 'Banned by admin'
-                            });
-
-                            toast.success('User banned successfully');
-                            window.location.reload();
-                          } catch {
-                            const { toast } = await import('sonner');
-                            toast.error('Failed to ban user');
-                          }
-                        }}
-                      >
-                        Ban User
-                      </AlertDialogAction>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
+                  )}
+                </>
               )}
 
+              {/* Delete Actions */}
               <DropdownMenuSeparator />
-
-              {!user.banned && user.role === 'admin' && (
-                <DropdownMenuItem
-                  disabled
-                  className='text-muted-foreground flex items-center gap-2'
-                >
-                  <Shield className='h-4 w-4' />
-                  Ban user
-                  <span className='ml-auto text-xs'>(Admin)</span>
-                </DropdownMenuItem>
-              )}
-
-              {/* Delete action */}
               {user.role === 'user' ? (
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
@@ -320,23 +329,21 @@ export const columns: ColumnDef<User>[] = [
                         className='bg-destructive text-destructive-foreground hover:bg-destructive/90'
                         onClick={async () => {
                           try {
-                            const { deleteUserAction } = await import(
-                              '@/actions/admin/delete-user.action'
+                            const { deleteUser } = await import(
+                              '@/helpers/admin-actions'
                             );
                             const { toast } = await import('sonner');
 
-                            const result = await deleteUserAction({
-                              userId: user.id
-                            });
-
-                            if (result.error) {
-                              toast.error(result.error);
-                            } else {
-                              toast.success('User deleted successfully');
-                            }
-                          } catch {
+                            await deleteUser(user.id);
+                            toast.success('User deleted successfully');
+                            window.location.reload();
+                          } catch (error) {
                             const { toast } = await import('sonner');
-                            toast.error('Failed to delete user');
+                            const message =
+                              error instanceof Error
+                                ? error.message
+                                : 'Failed to delete user';
+                            toast.error(message);
                           }
                         }}
                       >

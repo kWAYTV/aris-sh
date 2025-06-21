@@ -1,44 +1,47 @@
 'use client';
 
-import { TrashIcon } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
-import { deleteUserAction } from '@/actions/admin/delete-user.action';
 import { Button } from '@/components/ui/button';
+import { deleteUser } from '@/helpers/admin-actions';
 
 interface DeleteUserButtonProps {
   userId: string;
+  onDelete?: () => void;
 }
 
-export const DeleteUserButton = ({ userId }: DeleteUserButtonProps) => {
-  const [isPending, setIsPending] = useState(false);
+export function DeleteUserButton({ userId, onDelete }: DeleteUserButtonProps) {
+  const [isDeleting, setIsDeleting] = useState(false);
 
-  async function handleClick() {
-    setIsPending(true);
-    const res = await deleteUserAction({ userId });
-
-    if (res.error) {
-      toast.error(res.error);
-    } else {
+  const handleDelete = async () => {
+    setIsDeleting(true);
+    try {
+      await deleteUser(userId);
       toast.success('User deleted successfully');
+      onDelete?.();
+    } catch (error) {
+      toast.error(
+        error instanceof Error ? error.message : 'Failed to delete user'
+      );
+    } finally {
+      setIsDeleting(false);
     }
-    setIsPending(false);
-  }
+  };
 
   return (
     <Button
-      size='icon'
       variant='destructive'
-      className='size-7 rounded-sm'
-      onClick={handleClick}
-      disabled={isPending}
+      size='sm'
+      onClick={handleDelete}
+      disabled={isDeleting}
     >
-      <span className='sr-only'>Delete User</span>
-      <TrashIcon />
+      <Trash2 className='h-4 w-4' />
+      {isDeleting ? 'Deleting...' : 'Delete'}
     </Button>
   );
-};
+}
 
 export const PlaceholderDeleteUserButton = () => {
   return (
@@ -49,7 +52,7 @@ export const PlaceholderDeleteUserButton = () => {
       disabled
     >
       <span className='sr-only'>Delete User</span>
-      <TrashIcon />
+      <Trash2 className='h-4 w-4' />
     </Button>
   );
 };
