@@ -21,5 +21,5 @@ export default function Home() {
 
 export const metadata: Metadata = {
   title: 'aris.sh | home',
-  description: 'creative studio brain.'
+  description: 'creative brain studio.'
 };

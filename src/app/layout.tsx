@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: 'aris.sh',
-  description: 'creative studio brain.'
+  description: 'creative brain studio.'
 };
 
 export default function RootLayout({
