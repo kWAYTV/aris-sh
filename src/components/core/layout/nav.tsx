@@ -9,6 +9,7 @@ import ThemeButton from '@/components/core/themes/theme-button';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ModeToggle } from '@/components/ui/mode-toggle';
+import { Separator } from '@/components/ui/separator';
 import {
   Sheet,
   SheetContent,
@@ -87,15 +88,15 @@ export default function Navbar() {
                 </SheetTrigger>
                 <SheetContent
                   side='right'
-                  className='bg-background/95 supports-[backdrop-filter]:bg-background/60 w-72 border-l backdrop-blur'
+                  className='bg-background/95 supports-[backdrop-filter]:bg-background/60 w-80 border-l p-6 backdrop-blur'
                 >
                   <VisuallyHidden>
                     <SheetTitle>Navigation Menu</SheetTitle>
                   </VisuallyHidden>
 
-                  <div className='flex h-full flex-col'>
+                  <div className='flex h-full flex-col space-y-8'>
                     {/* Header */}
-                    <div className='mb-6 flex items-center gap-3 border-b pb-6'>
+                    <div className='flex items-center gap-3'>
                       <div className='bg-primary/10 flex h-10 w-10 items-center justify-center rounded-full'>
                         <Brain className='text-primary h-5 w-5' />
                       </div>
@@ -112,57 +113,52 @@ export default function Navbar() {
                       </div>
                     </div>
 
-                    {/* Navigation Items */}
-                    <div className='flex-1 space-y-6'>
-                      <div className='space-y-4'>
-                        <h3 className='text-muted-foreground text-sm font-medium tracking-wider uppercase'>
-                          Quick Actions
-                        </h3>
+                    <Separator />
 
-                        <div className='grid grid-cols-2 gap-4'>
-                          <div className='bg-card hover:bg-accent flex flex-col items-center gap-2 rounded-lg border p-4 transition-colors'>
-                            <GitHubButton />
-                            <span className='text-muted-foreground text-xs'>
-                              GitHub
-                            </span>
-                          </div>
+                    {/* Quick Actions */}
+                    <div className='space-y-6'>
+                      <h3 className='text-muted-foreground text-sm font-medium tracking-wide'>
+                        Quick Actions
+                      </h3>
 
-                          <div className='bg-card hover:bg-accent flex flex-col items-center gap-2 rounded-lg border p-4 transition-colors'>
-                            <ModeToggle />
-                            <span className='text-muted-foreground text-xs'>
-                              Theme
-                            </span>
-                          </div>
+                      <div className='space-y-3'>
+                        <div className='bg-card/50 hover:bg-card flex items-center justify-between rounded-lg border p-4 transition-colors'>
+                          <span className='text-sm font-medium'>GitHub</span>
+                          <GitHubButton />
                         </div>
 
-                        <div className='flex justify-center'>
-                          <div className='bg-card hover:bg-accent flex flex-col items-center gap-2 rounded-lg border p-4 transition-colors'>
-                            <ThemeButton />
-                            <span className='text-muted-foreground text-xs'>
-                              Customize
-                            </span>
-                          </div>
+                        <div className='bg-card/50 hover:bg-card flex items-center justify-between rounded-lg border p-4 transition-colors'>
+                          <span className='text-sm font-medium'>Theme</span>
+                          <ModeToggle />
+                        </div>
+
+                        <div className='bg-card/50 hover:bg-card flex items-center justify-between rounded-lg border p-4 transition-colors'>
+                          <span className='text-sm font-medium'>Customize</span>
+                          <ThemeButton />
                         </div>
                       </div>
+                    </div>
 
-                      {/* Account Section */}
-                      <div className='space-y-4 border-t pt-6'>
-                        <h3 className='text-muted-foreground text-sm font-medium tracking-wider uppercase'>
-                          Account
-                        </h3>
+                    <Separator />
 
-                        <div className='flex items-center justify-center'>
-                          <UserButton
-                            size='lg'
-                            additionalLinks={[
-                              {
-                                label: 'Dashboard',
-                                href: '/dashboard',
-                                icon: <Home />
-                              }
-                            ]}
-                          />
-                        </div>
+                    {/* Account Section */}
+                    <div className='space-y-6'>
+                      <h3 className='text-muted-foreground text-sm font-medium tracking-wide'>
+                        Account
+                      </h3>
+
+                      <div className='bg-card/50 hover:bg-card flex items-center justify-between rounded-lg border p-4 transition-colors'>
+                        <span className='text-sm font-medium'>Profile</span>
+                        <UserButton
+                          size='icon'
+                          additionalLinks={[
+                            {
+                              label: 'Dashboard',
+                              href: '/dashboard',
+                              icon: <Home />
+                            }
+                          ]}
+                        />
                       </div>
                     </div>
                   </div>
