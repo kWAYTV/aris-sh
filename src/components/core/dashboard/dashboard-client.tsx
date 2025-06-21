@@ -1,10 +1,9 @@
 'use client';
 
+import { DashboardHeader } from '@/components/core/dashboard/dashboard-header';
+import { JsonDebug } from '@/components/core/dashboard/json-debug';
+import { ProfileCard } from '@/components/core/dashboard/profile-card';
 import { type User } from '@/lib/auth';
-
-import { DashboardHeader } from './dashboard-header';
-import { JsonDebug } from './json-debug';
-import { ProfileCard } from './profile-card';
 
 interface DashboardClientProps {
   user: User;

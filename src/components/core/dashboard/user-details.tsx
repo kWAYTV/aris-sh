@@ -1,6 +1,5 @@
+import { UserBadges } from '@/components/core/dashboard/user-badges';
 import { type User } from '@/lib/auth';
-
-import { UserBadges } from './user-badges';
 
 interface UserDetailsProps {
   user: User;

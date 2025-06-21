@@ -2,9 +2,9 @@
 
 import { Suspense } from 'react';
 
-import { StarDisplay } from './star-display';
-import { StarSkeleton } from './star-skeleton';
-import { useGitHubStars } from './use-github-stars';
+import { StarDisplay } from '@/components/core/github/star-display';
+import { StarSkeleton } from '@/components/core/github/star-skeleton';
+import { useGitHubStars } from '@/components/core/github/use-github-stars';
 
 interface GitHubStarsProps {
   owner?: string;
