@@ -25,6 +25,17 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger
+} from '@/components/ui/alert-dialog';
 import { type User } from '@/lib/auth';
 
 export const columns: ColumnDef<User>[] = [
@@ -216,39 +227,57 @@ export const columns: ColumnDef<User>[] = [
               {/* Delete action */}
               <DropdownMenuSeparator />
               {user.role === 'user' ? (
-                <DropdownMenuItem
-                  className='text-destructive focus:text-destructive flex items-center gap-2'
-                  onClick={async () => {
-                    if (
-                      window.confirm(
-                        'Are you sure you want to delete this user? This action cannot be undone.'
-                      )
-                    ) {
-                      try {
-                        const { deleteUserAction } = await import(
-                          '@/actions/admin/delete-user.action'
-                        );
-                        const { toast } = await import('sonner');
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <DropdownMenuItem
+                      className='text-destructive focus:text-destructive flex items-center gap-2'
+                      onSelect={e => e.preventDefault()}
+                    >
+                      <Trash2 className='h-4 w-4' />
+                      Delete user
+                    </DropdownMenuItem>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Delete User</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        Are you sure you want to delete{' '}
+                        <strong>{user.name}</strong>? This action cannot be
+                        undone and will permanently remove the user account and
+                        all associated data.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction
+                        className='bg-destructive text-destructive-foreground hover:bg-destructive/90'
+                        onClick={async () => {
+                          try {
+                            const { deleteUserAction } = await import(
+                              '@/actions/admin/delete-user.action'
+                            );
+                            const { toast } = await import('sonner');
 
-                        const result = await deleteUserAction({
-                          userId: user.id
-                        });
+                            const result = await deleteUserAction({
+                              userId: user.id
+                            });
 
-                        if (result.error) {
-                          toast.error(result.error);
-                        } else {
-                          toast.success('User deleted successfully');
-                        }
-                      } catch {
-                        const { toast } = await import('sonner');
-                        toast.error('Failed to delete user');
-                      }
-                    }
-                  }}
-                >
-                  <Trash2 className='h-4 w-4' />
-                  Delete user
-                </DropdownMenuItem>
+                            if (result.error) {
+                              toast.error(result.error);
+                            } else {
+                              toast.success('User deleted successfully');
+                            }
+                          } catch {
+                            const { toast } = await import('sonner');
+                            toast.error('Failed to delete user');
+                          }
+                        }}
+                      >
+                        Delete User
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
               ) : (
                 <DropdownMenuItem
                   disabled
