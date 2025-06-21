@@ -6,8 +6,14 @@
 
 - 🤖 AI chat with streaming responses
 - 🔐 Complete authentication (email, OAuth, 2FA)
-- 💬 Persistent conversation threads
 - 🎨 Modern UI with dark/light themes
+
+## To Do
+
+- [ ] 💬 Persistent conversation threads
+- [ ] 📱 Mobile responsive design
+- [ ] 🔍 Search functionality
+- [ ] 📩 Attachments
 
 ## Tech Stack
 
