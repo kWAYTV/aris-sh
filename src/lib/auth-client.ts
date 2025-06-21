@@ -40,4 +40,4 @@ const CONFIG = {
 
 export const authClient = createAuthClient(CONFIG);
 
-export const { signOut, useSession, getSession } = authClient;
+export const { signOut, useSession, getSession, admin } = authClient;
