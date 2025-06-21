@@ -2,18 +2,13 @@
 
 import { APIError } from 'better-auth/api';
 import { revalidatePath } from 'next/cache';
-import { headers } from 'next/headers';
 
-import { auth } from '@/lib/auth';
+import { getSession } from '@/data/session';
 import { db, eq } from '@/lib/db';
 import { user } from '@/schemas/db.schema';
 
 export async function deleteUserAction({ userId }: { userId: string }) {
-  const _headers = await headers();
-
-  const session = await auth.api.getSession({
-    headers: _headers
-  });
+  const session = await getSession();
 
   if (!session) throw new Error('Unauthorized');
 
