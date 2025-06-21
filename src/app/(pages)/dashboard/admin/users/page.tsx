@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation';
 import { AdminDashboardClient } from '@/components/core/admin/users-table/admin-dashboard-client';
 import { ReturnButton } from '@/components/core/shared/return-button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { getUser } from '@/data/session';
+import { getUser } from '@/helpers/session';
 import { type User } from '@/lib/auth';
 import { auth } from '@/lib/auth';
 

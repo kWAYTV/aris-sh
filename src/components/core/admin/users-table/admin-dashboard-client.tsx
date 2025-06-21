@@ -54,6 +54,34 @@ export function AdminDashboardClient({ users }: AdminDashboardClientProps) {
     }
   }
 
+  async function handleBulkBan(userIds: string[]) {
+    setIsLoading(true);
+    try {
+      const { bulkBanUsers } = await import('@/helpers/admin-actions');
+      await bulkBanUsers(userIds);
+      toast.success(`${userIds.length} user(s) banned successfully`);
+      window.location.reload();
+    } catch {
+      toast.error('Failed to ban users');
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function handleBulkUnban(userIds: string[]) {
+    setIsLoading(true);
+    try {
+      const { bulkUnbanUsers } = await import('@/helpers/admin-actions');
+      await bulkUnbanUsers(userIds);
+      toast.success(`${userIds.length} user(s) unbanned successfully`);
+      window.location.reload();
+    } catch {
+      toast.error('Failed to unban users');
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   if (isLoading) {
     return <UsersTableSkeleton />;
   }
@@ -65,6 +93,8 @@ export function AdminDashboardClient({ users }: AdminDashboardClientProps) {
         data={users}
         onBulkDelete={handleBulkDelete}
         onBulkRoleChange={handleBulkRoleChange}
+        onBulkBan={handleBulkBan}
+        onBulkUnban={handleBulkUnban}
       />
     </Suspense>
   );

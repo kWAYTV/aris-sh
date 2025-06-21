@@ -30,13 +30,17 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   onBulkDelete?: (userIds: string[]) => void;
   onBulkRoleChange?: (userIds: string[], role: 'admin' | 'user') => void;
+  onBulkBan?: (userIds: string[]) => void;
+  onBulkUnban?: (userIds: string[]) => void;
 }
 
 export function UsersDataTable<TData, TValue>({
   columns,
   data,
   onBulkDelete,
-  onBulkRoleChange
+  onBulkRoleChange,
+  onBulkBan,
+  onBulkUnban
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -76,6 +80,8 @@ export function UsersDataTable<TData, TValue>({
         table={table}
         onBulkDelete={onBulkDelete}
         onBulkRoleChange={onBulkRoleChange}
+        onBulkBan={onBulkBan}
+        onBulkUnban={onBulkUnban}
       />
       <div className='rounded-md border'>
         <Table>

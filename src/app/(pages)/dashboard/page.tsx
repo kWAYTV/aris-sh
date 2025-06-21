@@ -4,7 +4,7 @@ import { Suspense } from 'react';
 
 import { DashboardClient } from '@/components/core/dashboard/dashboard-client';
 import { DashboardSkeleton } from '@/components/core/skeletons/dashboard-skeleton';
-import { getUser } from '@/data/session';
+import { getUser } from '@/helpers/session';
 
 export default async function DashboardPage() {
   const user = await getUser();

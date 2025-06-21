@@ -12,7 +12,7 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card';
-import { getUser } from '@/data/session';
+import { getUser } from '@/helpers/session';
 
 export default async function AdminDashboardPage() {
   const user = await getUser();

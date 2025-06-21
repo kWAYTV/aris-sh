@@ -1,7 +1,15 @@
 'use client';
 
 import { type Table } from '@tanstack/react-table';
-import { MoreHorizontal, Trash2, UserCheck, UserX, X } from 'lucide-react';
+import {
+  MoreHorizontal,
+  Shield,
+  ShieldOff,
+  Trash2,
+  UserCheck,
+  UserX,
+  X
+} from 'lucide-react';
 
 import { DataTableViewOptions } from '@/components/core/admin/users-table/data-table-view-options';
 import { Button } from '@/components/ui/button';
@@ -20,12 +28,16 @@ interface UsersTableToolbarProps<TData> {
   table: Table<TData>;
   onBulkDelete?: (userIds: string[]) => void;
   onBulkRoleChange?: (userIds: string[], role: 'admin' | 'user') => void;
+  onBulkBan?: (userIds: string[]) => void;
+  onBulkUnban?: (userIds: string[]) => void;
 }
 
 export function UsersTableToolbar<TData>({
   table,
   onBulkDelete,
-  onBulkRoleChange
+  onBulkRoleChange,
+  onBulkBan,
+  onBulkUnban
 }: UsersTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
   const selectedRows = table.getFilteredSelectedRowModel().rows;
@@ -35,6 +47,8 @@ export function UsersTableToolbar<TData>({
   const selectedUsers = selectedRows.map(row => row.original as User);
   const hasAdminSelected = selectedUsers.some(user => user.role === 'admin');
   const onlyAdminsSelected = selectedUsers.every(user => user.role === 'admin');
+  const hasBannedUsers = selectedUsers.some(user => user.banned);
+  const hasUnbannedUsers = selectedUsers.some(user => !user.banned);
 
   return (
     <div className='space-y-3'>
@@ -142,6 +156,63 @@ export function UsersTableToolbar<TData>({
                       >
                         <UserCheck className='mr-2 h-4 w-4' />
                         Make {selectedRows.length === 1 ? 'Admin' : 'Admins'}
+                      </DropdownMenuItem>
+                    )}
+                  </>
+                )}
+
+                {/* Ban/Unban Actions */}
+                {(onBulkBan || onBulkUnban) && (
+                  <>
+                    <DropdownMenuSeparator />
+
+                    {/* Bulk Ban */}
+                    {onBulkBan && hasUnbannedUsers && (
+                      <>
+                        {hasAdminSelected ? (
+                          <DropdownMenuItem
+                            disabled
+                            className='text-muted-foreground'
+                          >
+                            <Shield className='mr-2 h-4 w-4' />
+                            Ban {selectedRows.length === 1 ? 'User' : 'Users'}
+                            <span className='ml-auto text-xs'>(Admin)</span>
+                          </DropdownMenuItem>
+                        ) : (
+                          <DropdownMenuItem
+                            className='text-orange-600 focus:text-orange-600'
+                            onClick={() => {
+                              const userIds = selectedUsers
+                                .filter(
+                                  user => user.role !== 'admin' && !user.banned
+                                )
+                                .map(user => user.id);
+                              if (userIds.length > 0) {
+                                onBulkBan(userIds);
+                              }
+                            }}
+                          >
+                            <Shield className='mr-2 h-4 w-4' />
+                            Ban {selectedRows.length === 1 ? 'User' : 'Users'}
+                          </DropdownMenuItem>
+                        )}
+                      </>
+                    )}
+
+                    {/* Bulk Unban */}
+                    {onBulkUnban && hasBannedUsers && (
+                      <DropdownMenuItem
+                        onClick={() => {
+                          const userIds = selectedUsers
+                            .filter(user => user.banned)
+                            .map(user => user.id);
+                          if (userIds.length > 0) {
+                            onBulkUnban(userIds);
+                          }
+                        }}
+                      >
+                        <ShieldOff className='mr-2 h-4 w-4' />
+                        Unban {selectedRows.length === 1 ? 'User' : 'Users'}
                       </DropdownMenuItem>
                     )}
                   </>

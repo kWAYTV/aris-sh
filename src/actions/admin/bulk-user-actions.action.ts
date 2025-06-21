@@ -3,7 +3,7 @@
 import { APIError } from 'better-auth/api';
 import { revalidatePath } from 'next/cache';
 
-import { getSession } from '@/data/session';
+import { getSession } from '@/helpers/session';
 import { and, db, eq, inArray } from '@/lib/db';
 import { user } from '@/schemas/db.schema';
 

@@ -1,7 +1,7 @@
 import { google } from '@ai-sdk/google';
 import { streamText } from 'ai';
 
-import { getSession } from '@/data/session';
+import { getSession } from '@/helpers/session';
 
 export const maxDuration = 30;
 

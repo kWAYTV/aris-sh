@@ -211,17 +211,77 @@ export const columns: ColumnDef<User>[] = [
               </DropdownMenuItem>
 
               {user.banned && (
-                <DropdownMenuItem className='flex items-center gap-2'>
+                <DropdownMenuItem
+                  className='flex items-center gap-2'
+                  onClick={async () => {
+                    try {
+                      const { admin } = await import('@/lib/auth-client');
+                      const { toast } = await import('sonner');
+
+                      await admin.unbanUser({
+                        userId: user.id
+                      });
+
+                      toast.success('User unbanned successfully');
+                      window.location.reload();
+                    } catch {
+                      const { toast } = await import('sonner');
+                      toast.error('Failed to unban user');
+                    }
+                  }}
+                >
                   <ShieldOff className='h-4 w-4' />
                   Unban user
                 </DropdownMenuItem>
               )}
 
               {!user.banned && user.role === 'user' && (
-                <DropdownMenuItem className='flex items-center gap-2 text-orange-600'>
-                  <Shield className='h-4 w-4' />
-                  Ban user
-                </DropdownMenuItem>
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <DropdownMenuItem
+                      className='flex items-center gap-2 text-orange-600'
+                      onSelect={e => e.preventDefault()}
+                    >
+                      <Shield className='h-4 w-4' />
+                      Ban user
+                    </DropdownMenuItem>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Ban User</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        Are you sure you want to ban{' '}
+                        <strong>{user.name}</strong>? This will prevent them
+                        from signing in and revoke all their existing sessions.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction
+                        className='bg-orange-600 text-white hover:bg-orange-700'
+                        onClick={async () => {
+                          try {
+                            const { admin } = await import('@/lib/auth-client');
+                            const { toast } = await import('sonner');
+
+                            await admin.banUser({
+                              userId: user.id,
+                              banReason: 'Banned by admin'
+                            });
+
+                            toast.success('User banned successfully');
+                            window.location.reload();
+                          } catch {
+                            const { toast } = await import('sonner');
+                            toast.error('Failed to ban user');
+                          }
+                        }}
+                      >
+                        Ban User
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
               )}
 
               {/* Delete action */}
