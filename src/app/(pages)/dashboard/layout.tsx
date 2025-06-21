@@ -21,6 +21,6 @@ export default async function Layout({
 }
 
 export const metadata: Metadata = {
-  title: 'aris.sh | admin',
+  title: 'aris.sh | dashboard',
   description: 'creative brain studio.'
 };

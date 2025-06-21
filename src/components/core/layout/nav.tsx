@@ -1,7 +1,7 @@
 'use client';
 
 import { UserButton } from '@daveyplate/better-auth-ui';
-import { Brain } from 'lucide-react';
+import { Brain, Home } from 'lucide-react';
 import Link from 'next/link';
 
 import ThemeButton from '@/components/core/themes/theme-button';
@@ -48,7 +48,12 @@ export default function Navbar() {
               className='relative touch-manipulation'
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
-              <UserButton size='icon' />
+              <UserButton
+                size='icon'
+                additionalLinks={[
+                  { label: 'Dashboard', href: '/dashboard', icon: <Home /> }
+                ]}
+              />
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import { UserButton } from '@daveyplate/better-auth-ui';
-import { Brain } from 'lucide-react';
+import { Brain, Home } from 'lucide-react';
 import Link from 'next/link';
 import * as React from 'react';
 
@@ -57,7 +57,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <ThemeButton />
                 <GitHubButton />
               </div>
-              <UserButton size='icon' />
+              <UserButton
+                size='icon'
+                additionalLinks={[
+                  { label: 'Dashboard', href: '/dashboard', icon: <Home /> }
+                ]}
+              />
             </div>
           </SidebarMenuItem>
         </SidebarMenu>
