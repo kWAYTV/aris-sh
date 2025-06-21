@@ -1,16 +1,20 @@
 import { SignedIn } from '@daveyplate/better-auth-ui';
-import { AlertCircleIcon } from 'lucide-react';
-import { headers } from 'next/headers';
+import { AlertCircleIcon, Users } from 'lucide-react';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
-import { AdminDashboardClient } from '@/components/core/admin/users-table/admin-dashboard-client';
 import { ReturnButton } from '@/components/core/shared/return-button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle
+} from '@/components/ui/card';
 import { getUser } from '@/data/session';
-import { type User } from '@/lib/auth';
-import { auth } from '@/lib/auth';
 
-export default async function AdminPage() {
+export default async function AdminDashboardPage() {
   const user = await getUser();
 
   if (!user) return redirect('/dashboard');
@@ -35,31 +39,6 @@ export default async function AdminPage() {
     );
   }
 
-  const { users } = await auth.api.listUsers({
-    headers: await headers(),
-    query: {
-      sortBy: 'name'
-    }
-  });
-
-  // Transform the data to match our User type
-  const transformedUsers: User[] = users.map(
-    u =>
-      ({
-        ...u,
-        createdAt: new Date(u.createdAt),
-        updatedAt: new Date(u.updatedAt),
-        banExpires: u.banExpires ? new Date(u.banExpires) : undefined
-      }) as User
-  );
-
-  // Sort users (admins first)
-  const sortedUsers = transformedUsers.sort((a, b) => {
-    if (a.role === 'admin' && b.role !== 'admin') return -1;
-    if (a.role !== 'admin' && b.role === 'admin') return 1;
-    return 0;
-  });
-
   return (
     <>
       <SignedIn>
@@ -70,11 +49,30 @@ export default async function AdminPage() {
             <div className='space-y-2'>
               <h1 className='text-3xl font-bold'>Admin Dashboard</h1>
               <p className='text-muted-foreground'>
-                Manage users, roles, and system settings
+                Manage your application and monitor system status
               </p>
             </div>
 
-            <AdminDashboardClient users={sortedUsers} />
+            <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
+              <Link href='/dashboard/admin/users'>
+                <Card className='hover:bg-muted/50 cursor-pointer transition-colors'>
+                  <CardHeader>
+                    <div className='flex items-center gap-2'>
+                      <Users className='text-primary h-5 w-5' />
+                      <CardTitle>User Management</CardTitle>
+                    </div>
+                    <CardDescription>
+                      Manage user accounts, roles, and permissions
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <p className='text-muted-foreground text-sm'>
+                      View, edit, and manage all user accounts in the system
+                    </p>
+                  </CardContent>
+                </Card>
+              </Link>
+            </div>
           </div>
         </div>
       </SignedIn>
