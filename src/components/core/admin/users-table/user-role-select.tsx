@@ -1,6 +1,5 @@
 'use client';
 
-import { type ErrorContext } from 'better-auth/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'sonner';
@@ -12,7 +11,6 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
-import { admin } from '@/lib/auth-client';
 import { userRoles } from '@/schemas/db.schema';
 
 type UserRole = (typeof userRoles.enumValues)[number];
@@ -37,25 +35,19 @@ export const UserRoleSelect = ({ userId, role }: UserRoleSelectProps) => {
       return toast.error('Forbidden');
     } */
 
-    await admin.setRole({
-      userId,
-      role: newRole as UserRole,
-      fetchOptions: {
-        onRequest: () => {
-          setIsPending(true);
-        },
-        onResponse: () => {
-          setIsPending(false);
-        },
-        onError: (ctx: ErrorContext) => {
-          toast.error(ctx.error.message);
-        },
-        onSuccess: () => {
-          toast.success('User role updated');
-          router.refresh();
-        }
-      }
-    });
+    setIsPending(true);
+    try {
+      const { setUserRole } = await import('@/helpers/admin-actions');
+      await setUserRole(userId, newRole as UserRole);
+      toast.success('User role updated');
+      router.refresh();
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : 'Failed to update user role';
+      toast.error(message);
+    } finally {
+      setIsPending(false);
+    }
   }
 
   return (

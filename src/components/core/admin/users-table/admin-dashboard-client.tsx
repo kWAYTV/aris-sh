@@ -3,7 +3,6 @@
 import { Suspense, useState } from 'react';
 import { toast } from 'sonner';
 
-import { bulkChangeRoleAction } from '@/actions/admin/bulk-user-actions.action';
 import { UsersDataTable } from '@/components/core/admin/users-table/users-data-table';
 import { columns } from '@/components/core/admin/users-table/users-table-columns';
 import { UsersTableSkeleton } from '@/components/core/admin/users-table/users-table-skeleton';
@@ -36,12 +35,12 @@ export function AdminDashboardClient({ users }: AdminDashboardClientProps) {
   ) {
     setIsLoading(true);
     try {
-      const result = await bulkChangeRoleAction({ userIds, role });
-      if (result.error) {
-        toast.error(result.error);
-      } else {
-        toast.success(result.success);
-      }
+      const { bulkSetUserRole } = await import('@/helpers/admin-actions');
+      await bulkSetUserRole(userIds, role);
+      toast.success(
+        `${userIds.length} user(s) updated to ${role} successfully`
+      );
+      window.location.reload();
     } catch {
       toast.error('Failed to update user roles');
     } finally {
