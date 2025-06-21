@@ -17,14 +17,19 @@
 
 ## Tech Stack
 
-Next.js 15 • Google Gemini • PostgreSQL • Better Auth • Shadcn/ui
+[Next.js 15](https://nextjs.org/) • [Google Gemini](https://gemini.google.com/)
+• [PostgreSQL](https://www.postgresql.org/) •
+[Better Auth](https://www.better-auth.com/) •
+[Shadcn/ui](https://ui.shadcn.com/) •
+[Better Auth UI](https://better-auth-ui.com/) •
+[Assistant UI](https://www.assistant-ui.com/)
 
 ## Quick Start
 
 ```bash
 pnpm install
 cp .env.example .env
-# Configure your environment variables in .env
+# Configure your environment variables in .env, refer to each documentation for reference.
 pnpm dev
 ```
 
