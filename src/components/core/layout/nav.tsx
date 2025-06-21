@@ -13,6 +13,7 @@ import { Separator } from '@/components/ui/separator';
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetTitle,
   SheetTrigger
 } from '@/components/ui/sheet';
@@ -87,11 +88,14 @@ export default function Navbar() {
                   </Button>
                 </SheetTrigger>
                 <SheetContent
-                  side='right'
-                  className='bg-background/95 supports-[backdrop-filter]:bg-background/60 w-80 border-l p-6 backdrop-blur'
+                  side='bottom'
+                  className='bg-background/95 supports-[backdrop-filter]:bg-background/60 border-t p-6 backdrop-blur'
                 >
                   <VisuallyHidden>
                     <SheetTitle>Navigation Menu</SheetTitle>
+                    <SheetDescription>
+                      Access quick actions and account settings
+                    </SheetDescription>
                   </VisuallyHidden>
 
                   <div className='flex h-full flex-col space-y-8'>
