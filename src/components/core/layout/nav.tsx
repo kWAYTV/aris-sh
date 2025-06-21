@@ -67,7 +67,12 @@ export default function Navbar() {
               <UserButton
                 size='icon'
                 additionalLinks={[
-                  { label: 'Dashboard', href: '/dashboard', icon: <Home /> }
+                  {
+                    label: 'Dashboard',
+                    href: '/dashboard',
+                    icon: <Home />,
+                    signedIn: true
+                  }
                 ]}
               />
             </div>

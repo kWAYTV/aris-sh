@@ -60,7 +60,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <UserButton
                 size='icon'
                 additionalLinks={[
-                  { label: 'Dashboard', href: '/dashboard', icon: <Home /> }
+                  {
+                    label: 'Dashboard',
+                    href: '/dashboard',
+                    icon: <Home />,
+                    signedIn: true
+                  }
                 ]}
               />
             </div>
