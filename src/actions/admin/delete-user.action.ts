@@ -4,7 +4,7 @@ import { APIError } from 'better-auth/api';
 import { revalidatePath } from 'next/cache';
 
 import { getSession } from '@/data/session';
-import { db, eq } from '@/lib/db';
+import { and, db, eq } from '@/lib/db';
 import { user } from '@/schemas/db.schema';
 
 export async function deleteUserAction({ userId }: { userId: string }) {
@@ -21,7 +21,9 @@ export async function deleteUserAction({ userId }: { userId: string }) {
   }
 
   try {
-    await db.delete(user).where(eq(user.id, userId));
+    await db
+      .delete(user)
+      .where(and(eq(user.id, userId), eq(user.role, 'user')));
 
     revalidatePath('/dashboard/admin');
     return { success: true, error: null };
