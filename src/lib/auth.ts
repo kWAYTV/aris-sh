@@ -7,7 +7,6 @@ import {
   captcha,
   haveIBeenPwned,
   magicLink,
-  multiSession,
   twoFactor,
   username
 } from 'better-auth/plugins';
@@ -142,10 +141,6 @@ export const auth = betterAuth({
           })
         });
       }
-    }),
-
-    multiSession({
-      maximumSessions: 3
     }),
 
     twoFactor({

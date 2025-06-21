@@ -1,9 +1,8 @@
 import { headers } from 'next/headers';
 
 import { auth, type Session } from '@/lib/auth';
-import { getSession } from '@/lib/auth-client';
 
-export async function getSessionServer(): Promise<Session | null> {
+export const getSession = async (): Promise<Session | null> => {
   const session = await auth.api.getSession({
     headers: await headers()
   });
@@ -13,14 +12,14 @@ export async function getSessionServer(): Promise<Session | null> {
   }
 
   return session;
-}
+};
 
-export async function getSessionClient(): Promise<Session | null> {
-  const { data: session, error } = await getSession();
+export const getUser = async (): Promise<Session['user'] | null> => {
+  const session = await getSession();
 
-  if (error) {
+  if (!session || !session.user) {
     return null;
   }
 
-  return session;
-}
+  return session.user;
+};
