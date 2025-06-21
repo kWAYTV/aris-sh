@@ -1,14 +1,14 @@
 import { google } from '@ai-sdk/google';
 import { streamText } from 'ai';
 
-import { getSessionServer } from '@/data/session';
+import { getSession } from '@/data/session';
 
 export const maxDuration = 30;
 
 export async function POST(req: Request) {
   const { messages } = await req.json();
 
-  const session = await getSessionServer();
+  const session = await getSession();
 
   if (!session) {
     return new Response('Unauthorized', { status: 401 });
